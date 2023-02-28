@@ -85,7 +85,25 @@ barplot(brand$Delta, main="New vs. Existing Customers")
 
 Please calculate 'Marketing_Contribution' using formula: Marketing_Contribution = Gross_Profit - Marketing_Spend. Make a plot of the daily Marketing_Contribution at the aggregated level (for all channels and customer types together)
 
-Q5. Find correlation between Paid Search Revenue and Organic Search Revenue - as a calculation as well as a plot.
+```{r}
+#| output: false
+mc <- df |>
+  mutate(Marketing_Contribution = Gross_Profit - Marketing_Spend)
+head(mc, n = 10)
+```
+
+```{r}
+#| echo: false
+knitr::kable(head(mc, n = 10))
+```
+
+```{r}
+barplot(mc$Marketing_Contribution, main="Marketing Contribution")
+```
+
+## Question 5
+
+Find correlation between Paid Search Revenue and Organic Search Revenue - as a calculation as well as a plot.
 
 # Python
 
