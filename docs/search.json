@@ -81,14 +81,14 @@
     "href": "sql.html#answer-3",
     "title": "SQL and Database",
     "section": "Answer 3",
-    "text": "Answer 3\n\nSELECT CHANNEL_DESCRIPTION AS \"CHANNEL\"\n  , COUNT(DISTINCT BI_VISIT.VISIT_ID) AS \"VISITS\"\n  , SUM(REVENUE_TOP_LINE) AS \"TOP LINE\"\n  , SUM(REVENUE_BOTTOM_LINE) AS \"BOTTOM_LINE\"\n  , COUNT(DISTINCT SALES_TRANSACTION_ID) / COUNT(DISTINCT BI_VISIT.VISIT_ID) AS \"CONVERSION RATE\"\nFROM BI_VISIT\nLEFT JOIN BI_SALES ON BI_VISIT.VISIT_ID = BI_SALES.VISIT_ID\nLEFT JOIN BI_CAMPAIGN_DESCRIPTION ON SALES_TRANSACTION_CAMPAIGN_ID = CAMPAIGN_ID\nWHERE VISIT_DT >= DATETIME('now', '-90 day')\nGROUP BY SALES_TRANSACTION_DATE, CHANNEL_DESCRIPTION\n\n\n\n\nDisplaying records 1 - 10\n\n\n\n\nCHANNEL\n\n\nVISITS\n\n\nTOP LINE\n\n\nBOTTOM_LINE\n\n\nCONVERSION RATE\n\n\n\n\n\n\nNA\n\n\n10\n\n\nNA\n\n\nNA\n\n\n0\n\n\n\n\nChannel 1\n\n\n1\n\n\n23.99\n\n\n20.99\n\n\n1\n\n\n\n\nChannel 1\n\n\n1\n\n\n112.00\n\n\n100.00\n\n\n1\n\n\n\n\nChannel 1\n\n\n1\n\n\n98.79\n\n\n95.46\n\n\n1\n\n\n\n\nChannel 2\n\n\n1\n\n\n9.99\n\n\n4.99\n\n\n1\n\n\n\n\nChannel 2\n\n\n1\n\n\n15.79\n\n\n10.36\n\n\n1\n\n\n\n\nChannel 2\n\n\n1\n\n\n54.55\n\n\n29.78\n\n\n1\n\n\n\n\nChannel 1\n\n\n1\n\n\n36.33\n\n\n34.33\n\n\n1\n\n\n\n\nChannel 1\n\n\n1\n\n\n250.00\n\n\n229.32\n\n\n1\n\n\n\n\nChannel 1\n\n\n1\n\n\n12.99\n\n\n20.83\n\n\n1"
+    "text": "Answer 3\n\nSELECT SALES_TRANSACTION_DATE AS \"DAY\"\n  , CHANNEL_DESCRIPTION AS \"CHANNEL\"\n  , COUNT(DISTINCT BI_VISIT.VISIT_ID) AS \"VISITS\"\n  , SUM(REVENUE_TOP_LINE) AS \"TOP LINE\"\n  , SUM(REVENUE_BOTTOM_LINE) AS \"BOTTOM_LINE\"\n  , COUNT(DISTINCT SALES_TRANSACTION_ID) / COUNT(DISTINCT BI_VISIT.VISIT_ID) AS \"CONVERSION RATE\"\nFROM BI_VISIT\nLEFT JOIN BI_SALES ON BI_VISIT.VISIT_ID = BI_SALES.VISIT_ID\nLEFT JOIN BI_CAMPAIGN_DESCRIPTION ON SALES_TRANSACTION_CAMPAIGN_ID = CAMPAIGN_ID\nWHERE VISIT_DT >= DATETIME('now', '-90 day')\nGROUP BY SALES_TRANSACTION_DATE, CHANNEL_DESCRIPTION\n\n\n\n\nDisplaying records 1 - 10\n\n\n\n\nDAY\n\n\nCHANNEL\n\n\nVISITS\n\n\nTOP LINE\n\n\nBOTTOM_LINE\n\n\nCONVERSION RATE\n\n\n\n\n\n\nNA\n\n\nNA\n\n\n10\n\n\nNA\n\n\nNA\n\n\n0\n\n\n\n\n2022-08-27\n\n\nChannel 1\n\n\n1\n\n\n23.99\n\n\n20.99\n\n\n1\n\n\n\n\n2022-08-28\n\n\nChannel 1\n\n\n1\n\n\n112.00\n\n\n100.00\n\n\n1\n\n\n\n\n2022-08-29\n\n\nChannel 1\n\n\n1\n\n\n98.79\n\n\n95.46\n\n\n1\n\n\n\n\n2022-08-30\n\n\nChannel 2\n\n\n1\n\n\n9.99\n\n\n4.99\n\n\n1\n\n\n\n\n2022-08-31\n\n\nChannel 2\n\n\n1\n\n\n15.79\n\n\n10.36\n\n\n1\n\n\n\n\n2022-09-01\n\n\nChannel 2\n\n\n1\n\n\n54.55\n\n\n29.78\n\n\n1\n\n\n\n\n2022-09-02\n\n\nChannel 1\n\n\n1\n\n\n36.33\n\n\n34.33\n\n\n1\n\n\n\n\n2022-09-03\n\n\nChannel 1\n\n\n1\n\n\n250.00\n\n\n229.32\n\n\n1\n\n\n\n\n2022-09-04\n\n\nChannel 1\n\n\n1\n\n\n12.99\n\n\n20.83\n\n\n1"
   },
   {
     "objectID": "marketing-analysis.html#question-1",
     "href": "marketing-analysis.html#question-1",
     "title": "Marketing Analysis",
     "section": "Question 1",
-    "text": "Question 1\nWhat is the cost per conversion in position 1?"
+    "text": "Question 1\n\nPrompt\nWhat is the cost per conversion in position 1?\n\n\nAnswer\n\\[\nCPC / CvR\n\\]\n\\[\n$2.00 / .05 = $40.00\n\\]"
   },
   {
     "objectID": "marketing-analysis.html#answer-1",
@@ -102,7 +102,7 @@
     "href": "marketing-analysis.html#question-2",
     "title": "Marketing Analysis",
     "section": "Question 2",
-    "text": "Question 2\nWhat is the cost per conversion in position 2?"
+    "text": "Question 2\n\nPrompt\nWhat is the cost per conversion in position 2?\n\n\nAnswer\n\\[\nCPC / CvR\n\\]\n\\[\n$1.50 / .05 = $30.00\n\\]"
   },
   {
     "objectID": "marketing-analysis.html#answer-2",
@@ -116,7 +116,7 @@
     "href": "marketing-analysis.html#question-3",
     "title": "Marketing Analysis",
     "section": "Question 3",
-    "text": "Question 3\nWhat is the cost per conversion in position 3?"
+    "text": "Question 3\n\nPrompt\nWhat is the cost per conversion in position 3?\n\n\nAnswer\n\\[\nCPC / CvR\n\\]\n\\[\n$1.00 / .05 = $20.00\n\\]"
   },
   {
     "objectID": "marketing-analysis.html#answer-3",
@@ -130,7 +130,7 @@
     "href": "marketing-analysis.html#question-4",
     "title": "Marketing Analysis",
     "section": "Question 4",
-    "text": "Question 4\nIf goal is to maximize absolute net profit, then which position you would want to be in?"
+    "text": "Question 4\n\nPrompt\nIf goal is to maximize absolute net profit, then which position you would want to be in?\n\n\nAnswer\nPosition 3 as it has the lowest cost per conversion (\\(CPC/CvR\\))"
   },
   {
     "objectID": "marketing-analysis.html#answer-4",
@@ -144,7 +144,7 @@
     "href": "marketing-analysis.html#question-5",
     "title": "Marketing Analysis",
     "section": "Question 5",
-    "text": "Question 5\nIf goal is to maximize overall traffic, then which position you would want to be in?"
+    "text": "Question 5\n\nPrompt\nIf goal is to maximize overall traffic, then which position you would want to be in?\n\n\nAnswer\nPosition 1 as it has the highest click-through rate."
   },
   {
     "objectID": "marketing-analysis.html#answer-5",
@@ -158,7 +158,7 @@
     "href": "marketing-analysis.html#question-6",
     "title": "Marketing Analysis",
     "section": "Question 6",
-    "text": "Question 6\nCompare that with the most profitable position (from the answer of the previous question) and calculate the % extra cost you would have to pay to sustain this position?"
+    "text": "Question 6\n\nPrompt\nCompare that with the most profitable position (from the answer of the previous question) and calculate the % extra cost you would have to pay to sustain this position?\n\n\nAnswer\nYou would need to pay 100% more to get into position 1 for the same amount of clicks in position 3."
   },
   {
     "objectID": "marketing-analysis.html#answer-6",
@@ -172,7 +172,7 @@
     "href": "marketing-analysis.html#question-7",
     "title": "Marketing Analysis",
     "section": "Question 7",
-    "text": "Question 7\nWhat is return on ad spend (ROAS) of the additional conversions gained by moving from position 3 to position 2?"
+    "text": "Question 7\n\nPrompt\nWhat is return on ad spend (ROAS) of the additional conversions gained by moving from position 3 to position 2?\n\n\nAnswer\n\\[\nTotal Revenue / Ad Cost\n\\]\n\\[\n$200 / (1.50 / .05) = 6.67\n\\]"
   },
   {
     "objectID": "marketing-analysis.html#answer-7",
@@ -214,7 +214,7 @@
     "href": "scripting.html#question-2-1",
     "title": "Scripting Test",
     "section": "Question 2",
-    "text": "Question 2\nWithin this 90-day data set, we observe traffic from an “Unidentified”marketing channel coming to the site. We would like to identify the number of “existing” customers by day from this channel. (“Existing” customers are defined as those who have made a purchase in the past) Please demonstrate this result in a visualization. Are there any insights that you could derive from the visualization? What is the total spend amount and daily average spend on these existing customers?\nQ3. We believe that the Brand channel drives more New Customers than Existing Customers. We would like to verify this statement using the data provided. Please provide the daily difference between Brand channel’s New Customers and Existing Customers using a visualization. Are there any insights from the visualization?\nQ4. Please calculate ‘Marketing_Contribution’ using formula: Marketing_Contribution = Gross_Profit - Marketing_Spend. Make a plot of the daily Marketing_Contribution at the aggregated level (for all channels and customer types together)\nQ5. Find correlation between Paid Search Revenue and Organic Search Revenue - as a calculation as well as a plot."
+    "text": "Question 2\nWithin this 90-day data set, we observe traffic from an “Unidentified”marketing channel coming to the site. We would like to identify the number of “existing” customers by day from this channel. (“Existing” customers are defined as those who have made a purchase in the past) Please demonstrate this result in a visualization. Are there any insights that you could derive from the visualization? What is the total spend amount and daily average spend on these existing customers?"
   },
   {
     "objectID": "scripting.html#question-3",
@@ -236,5 +236,26 @@
     "title": "Scripting Test",
     "section": "Question 5",
     "text": "Question 5\nFind correlation between Paid Search Revenue and Organic Search Revenue - as a calculation as well as a plot.\n\nsearch <- df |>\n  filter(df$Channel %in% c(\"Paid Search\", \"Organic Search\"))\nsearch <- search |>\n  mutate(\"Paid\" = if_else(Channel == \"Paid Search\", Revenue, 0)) |>\n  mutate(\"Organic\" = if_else(Channel == \"Organic Search\", Revenue, 0))\nsearch <- search |> group_by(Date)\nsearch <- search |> summarise(\n    Paid = sum(Paid),\n    Organic = sum(Organic)\n)\nsearch[is.na(search)] <- 0\n\nhead(search, n = 10)\n\n\n\n\n\n\nDate\nPaid\nOrganic\n\n\n\n\n1/1/2017\n304585.5\n201553.0\n\n\n1/10/2017\n225208.6\n128184.4\n\n\n1/11/2017\n198156.8\n123618.3\n\n\n1/12/2017\n210197.6\n125007.6\n\n\n1/13/2017\n175905.2\n103175.5\n\n\n1/14/2017\n208245.9\n150135.4\n\n\n1/15/2017\n236808.2\n180538.1\n\n\n1/16/2017\n268583.6\n179252.9\n\n\n1/17/2017\n205861.5\n146634.5\n\n\n1/18/2017\n217794.6\n139864.3\n\n\n\n\n\n\ncor(search$Paid, search$Organic)\n\n[1] 0.8457697\n\nplot(search$Paid, search$Organic)"
+  },
+  {
+    "objectID": "scripting.html#question-3-1",
+    "href": "scripting.html#question-3-1",
+    "title": "Scripting Test",
+    "section": "Question 3",
+    "text": "Question 3\nWe believe that the Brand channel drives more New Customers than Existing Customers. We would like to verify this statement using the data provided. Please provide the daily difference between Brand channel’s New Customers and Existing Customers using a visualization. Are there any insights from the visualization?"
+  },
+  {
+    "objectID": "scripting.html#question-4-1",
+    "href": "scripting.html#question-4-1",
+    "title": "Scripting Test",
+    "section": "Question 4",
+    "text": "Question 4\nPlease calculate ‘Marketing_Contribution’ using formula: Marketing_Contribution = Gross_Profit - Marketing_Spend. Make a plot of the daily Marketing_Contribution at the aggregated level (for all channels and customer types together)"
+  },
+  {
+    "objectID": "scripting.html#question-5-1",
+    "href": "scripting.html#question-5-1",
+    "title": "Scripting Test",
+    "section": "Question 5",
+    "text": "Question 5\nFind correlation between Paid Search Revenue and Organic Search Revenue - as a calculation as well as a plot."
   }
 ]

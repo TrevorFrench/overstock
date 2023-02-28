@@ -18,9 +18,11 @@ The table below summarizes the above information:
 
 ## Question 1
 
+### Prompt
+
 What is the cost per conversion in position 1?
 
-## Answer 1
+### Answer
 
 $$
 CPC / CvR
@@ -32,9 +34,11 @@ $$
 
 ## Question 2
 
+### Prompt
+
 What is the cost per conversion in position 2?
 
-## Answer 2
+### Answer
 
 $$
 CPC / CvR
@@ -46,9 +50,11 @@ $$
 
 ## Question 3
 
+### Prompt
+
 What is the cost per conversion in position 3?
 
-## Answer 3
+### Answer
 
 $$
 CPC / CvR
@@ -60,28 +66,46 @@ $$
 
 ## Question 4
 
+### Prompt
+
 If goal is to maximize absolute net profit, then which position you would want to be in?
 
-## Answer 4
+### Answer
 
 Position 3 as it has the lowest cost per conversion ($CPC/CvR$)
 
 ## Question 5
 
+### Prompt
+
 If goal is to maximize overall traffic, then which position you would want to be in?
 
-## Answer 5
+### Answer
 
 Position 1 as it has the highest click-through rate.
 
 ## Question 6
 
+### Prompt
+
 Compare that with the most profitable position (from the answer of the previous question) and calculate the % extra cost you would have to pay to sustain this position?
 
-## Answer 6
+### Answer
+
+You would need to pay 100% more to get into position 1 for the same amount of clicks in position 3.
 
 ## Question 7
 
+### Prompt
+
 What is return on ad spend (ROAS) of the additional conversions gained by moving from position 3 to position 2?
 
-## Answer 7
+### Answer
+
+$$
+Total Revenue / Ad Cost
+$$
+
+$$
+$200 / (1.50 / .05) = 6.67
+$$
