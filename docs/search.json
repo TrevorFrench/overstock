@@ -25,7 +25,7 @@
     "href": "marketing-analysis.html",
     "title": "Marketing Analysis",
     "section": "",
-    "text": "Situation: You are currently in position 3 of a paid text search keyword. The click-through rate (clicks per impressions) is 1% and the cost-per-click (CPC) is $1. You can get into position 1 by paying $2 CPC and would expect a CTR of 2%. In position 2, your CPC would be $1.5 and you would expect a CTR of 1.5%. Conversion Rate (conversions per click) is 5% for all positions. (CvR) Gross margin per conversion is 20% (before advertising cost). Average Order (conversion) Value is $200. (AOV)\nThe table below summarizes the above information:\n\n\n\nAd Position\nCTR\nCvR\nGross Margin\nCPC\nAOV\n\n\n\n\n1\n2.00%\n5%\n20%\n$2.00\n$200\n\n\n2\n1.50%\n5%\n20%\n$1.50\n$200\n\n\n3\n1.00%\n5%\n20%\n$1.00\n$200\n\n\n\nQuestion Q1. What is the cost per conversion in position 1? Q2. What is the cost per conversion in position 2? Q3. What is the cost per conversion in position 3? Q4. If goal is to maximize absolute net profit, then which position you would want to be in? Q4. If goal is to maximize overall traffic, then which position you would want to be in? “Q5. Compare that with the most profitable position (from the answer of the previous question) and calculate the % extra cost you would have to pay to sustain this position?” Q6. What is return on ad spend (ROAS) of the additional conversions gained by moving from position 3 to position 2?"
+    "text": "You are currently in position 3 of a paid text search keyword. The click-through rate (clicks per impressions) is 1% and the cost-per-click (CPC) is $1. You can get into position 1 by paying $2 CPC and would expect a CTR of 2%. In position 2, your CPC would be $1.5 and you would expect a CTR of 1.5%. Conversion Rate (conversions per click) is 5% for all positions. (CvR) Gross margin per conversion is 20% (before advertising cost). Average Order (conversion) Value is $200. (AOV)\nThe table below summarizes the above information:\n\n\n\nAd Position\nCTR\nCvR\nGross Margin\nCPC\nAOV\n\n\n\n\n1\n2.00%\n5%\n20%\n$2.00\n$200\n\n\n2\n1.50%\n5%\n20%\n$1.50\n$200\n\n\n3\n1.00%\n5%\n20%\n$1.00\n$200"
   },
   {
     "objectID": "scripting.html",
@@ -82,5 +82,103 @@
     "title": "SQL and Database",
     "section": "Answer 3",
     "text": "Answer 3\n\nWITH sales_data AS (\n  SELECT SALES_TRANSACTION_DATE AS \"DATE\"\n    , CHANNEL_DESCRIPTION AS \"MARKETING CHANNEL\"\n    , SUM(REVENUE_TOP_LINE) AS \"TOP LINE REVENUE\"\n    , SUM(REVENUE_BOTTOM_LINE) AS \"BOTTOM LINE REVENUE\"\n  FROM BI_SALES\n  LEFT JOIN BI_CAMPAIGN_DESCRIPTION\n  ON SALES_TRANSACTION_CAMPAIGN_ID = CAMPAIGN_ID\n  WHERE SALES_TRANSACTION_DATE >= DATETIME('now', '-90 day')\n  GROUP BY SALES_TRANSACTION_DATE, CHANNEL_DESCRIPTION\n  ORDER BY SALES_TRANSACTION_DATE DESC\n)\n\nSELECT *\n  , (\"TOP LINE REVENUE\" - LEAD(\"TOP LINE REVENUE\", 1) OVER(PARTITION BY \"MARKETING CHANNEL\" ORDER BY \"DATE\" DESC)) / LEAD(\"TOP LINE REVENUE\", 1) OVER(PARTITION BY \"MARKETING CHANNEL\" ORDER BY \"DATE\" DESC) * 100 AS \"DAILY TOP LINE TREND\"\n  , (\"BOTTOM LINE REVENUE\" - LEAD(\"BOTTOM LINE REVENUE\", 1) OVER(PARTITION BY \"MARKETING CHANNEL\" ORDER BY \"DATE\" DESC)) / LEAD(\"BOTTOM LINE REVENUE\", 1) OVER(PARTITION BY \"MARKETING CHANNEL\" ORDER BY \"DATE\" DESC) * 100 AS \"DAILY BOTTOM LINE TREND\"\nFROM sales_data;\n\n\n\n\nDisplaying records 1 - 10\n\n\n\n\nDATE\n\n\nMARKETING CHANNEL\n\n\nTOP LINE REVENUE\n\n\nBOTTOM LINE REVENUE\n\n\nDAILY TOP LINE TREND\n\n\nDAILY BOTTOM LINE TREND\n\n\n\n\n\n\n2023-02-24\n\n\nChannel 1\n\n\n1300.1400\n\n\n1261.1358\n\n\n126.119956\n\n\n126.156451\n\n\n\n\n2023-02-23\n\n\nChannel 1\n\n\n574.9780\n\n\n557.6387\n\n\n-50.473918\n\n\n-50.481910\n\n\n\n\n2023-02-22\n\n\nChannel 1\n\n\n1160.9600\n\n\n1126.1312\n\n\n-33.389179\n\n\n-33.389179\n\n\n\n\n2023-02-21\n\n\nChannel 1\n\n\n1742.9000\n\n\n1690.6130\n\n\n360.432377\n\n\n360.545262\n\n\n\n\n2023-02-20\n\n\nChannel 1\n\n\n378.5355\n\n\n367.0894\n\n\n-73.245917\n\n\n-73.252474\n\n\n\n\n2023-02-19\n\n\nChannel 1\n\n\n1414.8700\n\n\n1372.4239\n\n\n-11.045236\n\n\n-11.040047\n\n\n\n\n2023-02-18\n\n\nChannel 1\n\n\n1590.5500\n\n\n1542.7435\n\n\n119.698330\n\n\n119.685514\n\n\n\n\n2023-02-17\n\n\nChannel 1\n\n\n723.9700\n\n\n702.2509\n\n\n-24.209083\n\n\n-24.209083\n\n\n\n\n2023-02-16\n\n\nChannel 1\n\n\n955.2200\n\n\n926.5634\n\n\n19.710755\n\n\n19.710755\n\n\n\n\n2023-02-15\n\n\nChannel 1\n\n\n797.9400\n\n\n774.0018\n\n\n-3.646726\n\n\n-3.646726"
+  },
+  {
+    "objectID": "marketing-analysis.html#question-1",
+    "href": "marketing-analysis.html#question-1",
+    "title": "Marketing Analysis",
+    "section": "Question 1",
+    "text": "Question 1\nWhat is the cost per conversion in position 1?"
+  },
+  {
+    "objectID": "marketing-analysis.html#answer-1",
+    "href": "marketing-analysis.html#answer-1",
+    "title": "Marketing Analysis",
+    "section": "Answer 1",
+    "text": "Answer 1\n\\[\nCPC / CvR\n\\]\n\\[\n$2.00 / .05 = $40.00\n\\]"
+  },
+  {
+    "objectID": "marketing-analysis.html#question-2",
+    "href": "marketing-analysis.html#question-2",
+    "title": "Marketing Analysis",
+    "section": "Question 2",
+    "text": "Question 2\nWhat is the cost per conversion in position 2?"
+  },
+  {
+    "objectID": "marketing-analysis.html#answer-2",
+    "href": "marketing-analysis.html#answer-2",
+    "title": "Marketing Analysis",
+    "section": "Answer 2",
+    "text": "Answer 2\n\\[\nCPC / CvR\n\\]\n\\[\n$1.50 / .05 = $30.00\n\\]"
+  },
+  {
+    "objectID": "marketing-analysis.html#question-3",
+    "href": "marketing-analysis.html#question-3",
+    "title": "Marketing Analysis",
+    "section": "Question 3",
+    "text": "Question 3\nWhat is the cost per conversion in position 3?"
+  },
+  {
+    "objectID": "marketing-analysis.html#answer-3",
+    "href": "marketing-analysis.html#answer-3",
+    "title": "Marketing Analysis",
+    "section": "Answer 3",
+    "text": "Answer 3\n\\[\nCPC / CvR\n\\]\n\\[\n$1.00 / .05 = $20.00\n\\]"
+  },
+  {
+    "objectID": "marketing-analysis.html#question-4",
+    "href": "marketing-analysis.html#question-4",
+    "title": "Marketing Analysis",
+    "section": "Question 4",
+    "text": "Question 4\nIf goal is to maximize absolute net profit, then which position you would want to be in?"
+  },
+  {
+    "objectID": "marketing-analysis.html#answer-4",
+    "href": "marketing-analysis.html#answer-4",
+    "title": "Marketing Analysis",
+    "section": "Answer 4",
+    "text": "Answer 4\nPosition 3 as it has the lowest cost per conversion (\\(CPC/CvR\\))"
+  },
+  {
+    "objectID": "marketing-analysis.html#question-5",
+    "href": "marketing-analysis.html#question-5",
+    "title": "Marketing Analysis",
+    "section": "Question 5",
+    "text": "Question 5\nIf goal is to maximize overall traffic, then which position you would want to be in?"
+  },
+  {
+    "objectID": "marketing-analysis.html#answer-5",
+    "href": "marketing-analysis.html#answer-5",
+    "title": "Marketing Analysis",
+    "section": "Answer 5",
+    "text": "Answer 5\nPosition 1 as it has the highest click-through rate."
+  },
+  {
+    "objectID": "marketing-analysis.html#question-6",
+    "href": "marketing-analysis.html#question-6",
+    "title": "Marketing Analysis",
+    "section": "Question 6",
+    "text": "Question 6\nCompare that with the most profitable position (from the answer of the previous question) and calculate the % extra cost you would have to pay to sustain this position?"
+  },
+  {
+    "objectID": "marketing-analysis.html#answer-6",
+    "href": "marketing-analysis.html#answer-6",
+    "title": "Marketing Analysis",
+    "section": "Answer 6",
+    "text": "Answer 6"
+  },
+  {
+    "objectID": "marketing-analysis.html#question-7",
+    "href": "marketing-analysis.html#question-7",
+    "title": "Marketing Analysis",
+    "section": "Question 7",
+    "text": "Question 7\nWhat is return on ad spend (ROAS) of the additional conversions gained by moving from position 3 to position 2?"
+  },
+  {
+    "objectID": "marketing-analysis.html#answer-7",
+    "href": "marketing-analysis.html#answer-7",
+    "title": "Marketing Analysis",
+    "section": "Answer 7",
+    "text": "Answer 7"
   }
 ]
