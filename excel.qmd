@@ -4,4 +4,47 @@ title: "Excel Basic Functions"
 
 # Basic Functions I
 
+## Instructions
+
+```{r out.extra="style='background-color: #9ecff7; padding:10px; display: block; margin-left: auto; margin-right: auto; width: 80%;'"}
+#| label: bf1-instructions
+#| echo: false
+#| out.width: 500
+knitr::include_graphics("images/bf1-instructions.png", dpi = 270)
+```
+
+## Answer
+
+```{r out.extra="style='background-color: #9ecff7; padding:10px; display: block; margin-left: auto; margin-right: auto; width: 80%;'"}
+#| label: bf1-answer1
+#| echo: false
+#| out.width: 500
+knitr::include_graphics("images/bf1-answer1.png", dpi = 270)
+```
+
+```{r out.extra="style='background-color: #9ecff7; padding:10px; display: block; margin-left: auto; margin-right: auto; width: 80%;'"}
+#| label: bf1-answer2
+#| echo: false
+#| out.width: 500
+knitr::include_graphics("images/bf1-answer2.png", dpi = 270)
+```
+
+```{r out.extra="style='background-color: #9ecff7; padding:10px; display: block; margin-left: auto; margin-right: auto; width: 80%;'"}
+#| label: bf1-answer3
+#| echo: false
+#| out.width: 500
+knitr::include_graphics("images/bf1-answer3.png", dpi = 270)
+```
+
 # Basic Functions II
+
+## Instructions
+
+```{r out.extra="style='background-color: #9ecff7; padding:10px; display: block; margin-left: auto; margin-right: auto; width: 80%;'"}
+#| label: bf1-instructions
+#| echo: false
+#| out.width: 500
+knitr::include_graphics("images/bf2-instructions.png", dpi = 270)
+```
+
+## Answers
