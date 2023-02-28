@@ -4,7 +4,7 @@ title: "SQL and Database"
 
 # Instructions
 
-The top 18 columns show a simplistic overview of 3 tables we have at Overstock.com.  Your task will be to write SQL as if you were querying these tables to retrieve the data as specified in the questions.
+The top 18 columns show a simplistic overview of 3 tables we have at Overstock.com. Your task will be to write SQL as if you were querying these tables to retrieve the data as specified in the questions.
 
 The questions will require you to join tables and make calculations within the SQL to get the desired output.
 
@@ -86,11 +86,9 @@ Show me the number of visits, visitors and bounce rate for each Marketing Channe
 
 ## Answer 2
 
-
-
 ## Question 3
 
-Show me the number of visits each Marketing channel acquired and the revenue (top line & Bottom line) for each last clicked Marketing channel for the past 90 days trended by day.  Calculate conversion rate (orders/visits). Answer in one query.
+Show me the number of visits each Marketing channel acquired and the revenue (top line & Bottom line) for each last clicked Marketing channel for the past 90 days trended by day. Calculate conversion rate (orders/visits). Answer in one query.
 
 ## Answer 3
 
