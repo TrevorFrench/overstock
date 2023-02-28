@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>overstock - Overstock Analyst Assessment</title>
+<title>overstock - Marketing Analysis</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -29,7 +29,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./sql.html" rel="next">
+<link href="./scripting.html" rel="next">
+<link href="./excel.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -69,7 +70,7 @@ ul.task-list li input[type="checkbox"] {
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title">Overstock Analyst Assessment</h1>
+      <h1 class="quarto-secondary-nav-title">Marketing Analysis</h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -99,7 +100,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">Home</a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link">Home</a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -114,7 +115,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./marketing-analysis.html" class="sidebar-item-text sidebar-link">Marketing Analysis</a>
+  <a href="./marketing-analysis.html" class="sidebar-item-text sidebar-link active">Marketing Analysis</a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -127,21 +128,14 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#instructions" id="toc-instructions" class="nav-link active" data-scroll-target="#instructions">Instructions</a></li>
-  <li><a href="#navigation" id="toc-navigation" class="nav-link" data-scroll-target="#navigation">Navigation</a></li>
-  </ul>
-</nav>
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block">Overstock Analyst Assessment</h1>
+<h1 class="title d-none d-lg-block">Marketing Analysis</h1>
 </div>
 
 
@@ -156,33 +150,49 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<section id="instructions" class="level1">
-<h1>Instructions</h1>
-<ol type="1">
-<li>This is a time-based test. You have 48 hours to submit the completed test since the time you received it.</li>
-<li>Open book case study. You may refer to any materials (online, offline, etc.); however, you can not speak to or communicate with (in person or electronically) to receive any type of help or hints.</li>
-<li>Please assume you’re presenting your answers to executives and should format your spreadsheet accordingly (solution part only, not raw data, etc.)</li>
-</ol>
-</section>
-<section id="navigation" class="level1">
-<h1>Navigation</h1>
-<ol type="1">
-<li><p>SQL and Database</p></li>
-<li><p>Excel Basic Functions</p>
-<ul>
-<li>Basic Functions I</li>
-<li>Basic Functions II</li>
-</ul></li>
-<li><p>Marketing Analysis</p>
-<ul>
-<li>Paid Digital Marketing Analysis</li>
-<li>Ad Placement Analysis</li>
-</ul></li>
-<li><p>Scripting Test (R or Python)</p></li>
-</ol>
+<p>Situation: You are currently in position 3 of a paid text search keyword. The click-through rate (clicks per impressions) is 1% and the cost-per-click (CPC) is $1. You can get into position 1 by paying $2 CPC and would expect a CTR of 2%. In position 2, your CPC would be $1.5 and you would expect a CTR of 1.5%. Conversion Rate (conversions per click) is 5% for all positions. (CvR) Gross margin per conversion is 20% (before advertising cost). Average Order (conversion) Value is $200. (AOV)</p>
+<p>The table below summarizes the above information:</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Ad Position</th>
+<th>CTR</th>
+<th>CvR</th>
+<th>Gross Margin</th>
+<th>CPC</th>
+<th>AOV</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>2.00%</td>
+<td>5%</td>
+<td>20%</td>
+<td>$2.00</td>
+<td>$200</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>1.50%</td>
+<td>5%</td>
+<td>20%</td>
+<td>$1.50</td>
+<td>$200</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>1.00%</td>
+<td>5%</td>
+<td>20%</td>
+<td>$1.00</td>
+<td>$200</td>
+</tr>
+</tbody>
+</table>
+<p>Question Q1. What is the cost per conversion in position 1? Q2. What is the cost per conversion in position 2? Q3. What is the cost per conversion in position 3? Q4. If goal is to maximize absolute net profit, then which position you would want to be in? Q4. If goal is to maximize overall traffic, then which position you would want to be in? “Q5. Compare that with the most profitable position (from the answer of the previous question) and calculate the % extra cost you would have to pay to sustain this position?” Q6. What is return on ad spend (ROAS) of the additional conversions gained by moving from position 3 to position 2?</p>
 
 
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -320,10 +330,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./excel.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Excel Basic Functions</span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./sql.html" class="pagination-link">
-        <span class="nav-page-text">SQL and Database</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./scripting.html" class="pagination-link">
+        <span class="nav-page-text">Scripting Test</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

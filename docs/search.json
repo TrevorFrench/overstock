@@ -12,5 +12,75 @@
     "title": "Excel Basic Functions",
     "section": "Answers",
     "text": "Answers"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Overstock Analyst Assessment",
+    "section": "",
+    "text": "Instructions\n\nThis is a time-based test. You have 48 hours to submit the completed test since the time you received it.\nOpen book case study. You may refer to any materials (online, offline, etc.); however, you can not speak to or communicate with (in person or electronically) to receive any type of help or hints.\nPlease assume you’re presenting your answers to executives and should format your spreadsheet accordingly (solution part only, not raw data, etc.)\n\n\n\nNavigation\n\nSQL and Database\nExcel Basic Functions\n\nBasic Functions I\nBasic Functions II\n\nMarketing Analysis\n\nPaid Digital Marketing Analysis\nAd Placement Analysis\n\nScripting Test (R or Python)"
+  },
+  {
+    "objectID": "marketing-analysis.html",
+    "href": "marketing-analysis.html",
+    "title": "Marketing Analysis",
+    "section": "",
+    "text": "Situation: You are currently in position 3 of a paid text search keyword. The click-through rate (clicks per impressions) is 1% and the cost-per-click (CPC) is $1. You can get into position 1 by paying $2 CPC and would expect a CTR of 2%. In position 2, your CPC would be $1.5 and you would expect a CTR of 1.5%. Conversion Rate (conversions per click) is 5% for all positions. (CvR) Gross margin per conversion is 20% (before advertising cost). Average Order (conversion) Value is $200. (AOV)\nThe table below summarizes the above information:\n\n\n\nAd Position\nCTR\nCvR\nGross Margin\nCPC\nAOV\n\n\n\n\n1\n2.00%\n5%\n20%\n$2.00\n$200\n\n\n2\n1.50%\n5%\n20%\n$1.50\n$200\n\n\n3\n1.00%\n5%\n20%\n$1.00\n$200\n\n\n\nQuestion Q1. What is the cost per conversion in position 1? Q2. What is the cost per conversion in position 2? Q3. What is the cost per conversion in position 3? Q4. If goal is to maximize absolute net profit, then which position you would want to be in? Q4. If goal is to maximize overall traffic, then which position you would want to be in? “Q5. Compare that with the most profitable position (from the answer of the previous question) and calculate the % extra cost you would have to pay to sustain this position?” Q6. What is return on ad spend (ROAS) of the additional conversions gained by moving from position 3 to position 2?"
+  },
+  {
+    "objectID": "scripting.html",
+    "href": "scripting.html",
+    "title": "Scripting Test",
+    "section": "",
+    "text": "Instructions\nThe objective of this exercise is to test your ability to read, clean, transform, visualize and interpret data using R or Python. You are provided a CSV file with some sample marketing sales data for an e-commerce website. You may choose either R or Python to complete the exercise. If you prefer, then you may also use R markdown or Python notebook format.\n\n\nR\nQ1. Read the data into an R or Pandas data frame. Display the top 10 rows of the data frame.\nQ2. Within this 90-day data set, we observe traffic from an “Unidentified”marketing channel coming to the site. We would like to identify the number of “existing” customers by day from this channel. (“Existing” customers are defined as those who have made a purchase in the past) Please demonstrate this result in a visualization. Are there any insights that you could derive from the visualization? What is the total spend amount and daily average spend on these existing customers?\nQ3. We believe that the Brand channel drives more New Customers than Existing Customers. We would like to verify this statement using the data provided. Please provide the daily difference between Brand channel’s New Customers and Existing Customers using a visualization. Are there any insights from the visualization?\nQ4. Please calculate ‘Marketing_Contribution’ using formula: Marketing_Contribution = Gross_Profit - Marketing_Spend. Make a plot of the daily Marketing_Contribution at the aggregated level (for all channels and customer types together)\nQ5. Find correlation between Paid Search Revenue and Organic Search Revenue - as a calculation as well as a plot.\n\n\nPython\nQ1. Read the data into an R or Pandas data frame. Display the top 10 rows of the data frame.\nQ2. Within this 90-day data set, we observe traffic from an “Unidentified”marketing channel coming to the site. We would like to identify the number of “existing” customers by day from this channel. (“Existing” customers are defined as those who have made a purchase in the past) Please demonstrate this result in a visualization. Are there any insights that you could derive from the visualization? What is the total spend amount and daily average spend on these existing customers?\nQ3. We believe that the Brand channel drives more New Customers than Existing Customers. We would like to verify this statement using the data provided. Please provide the daily difference between Brand channel’s New Customers and Existing Customers using a visualization. Are there any insights from the visualization?\nQ4. Please calculate ‘Marketing_Contribution’ using formula: Marketing_Contribution = Gross_Profit - Marketing_Spend. Make a plot of the daily Marketing_Contribution at the aggregated level (for all channels and customer types together)\nQ5. Find correlation between Paid Search Revenue and Organic Search Revenue - as a calculation as well as a plot."
+  },
+  {
+    "objectID": "sql.html",
+    "href": "sql.html",
+    "title": "SQL and Database",
+    "section": "",
+    "text": "The top 18 columns show a simplistic overview of 3 tables we have at Overstock.com. Your task will be to write SQL as if you were querying these tables to retrieve the data as specified in the questions.\nThe questions will require you to join tables and make calculations within the SQL to get the desired output.\nPlease note column E (notes) to verify you are using columns and data correctly as you write the SQL.\n\n\n\n\n\n\n \n  \n    Database \n    Tables \n    Columns \n    Value type \n    Notes \n  \n \n\n  \n    EDW_ACCESS_VIEWS \n    BI_VISIT \n    VISIT_ID \n    DECIMAL \n    Primary Unique Key - ID for individual browsing sessions on website \n  \n  \n    EDW_ACCESS_VIEWS \n    BI_VISIT \n    VISITOR_ID \n    DECIMAL \n    ID for individuals on website \n  \n  \n    EDW_ACCESS_VIEWS \n    BI_VISIT \n    VISIT_DT \n    DATE \n    Date of visit to website \n  \n  \n    EDW_ACCESS_VIEWS \n    BI_VISIT \n    FIRST_PAGE_VIEW_CAMPAIGN_ID \n    DECIMAL \n    Campaign ID for the first webpage a visit views.  The campaign that drove the visitor to view the website. \n  \n  \n    EDW_ACCESS_VIEWS \n    BI_VISIT \n    PAGE_VIEW_COUNT \n    INTEGER \n    A count of pages viewed in a given visit \n  \n  \n    EDW_ACCESS_VIEWS \n    BI_SALES \n    SALES_TRANSACTION_ID \n    INTEGER \n    ID for individual sale transactions \n  \n  \n    EDW_ACCESS_VIEWS \n    BI_SALES \n    SALES_TRANSACTION_LINE_ID \n    INTEGER \n    Primary Unique Key - ID for individual items purchased in a sale transaction \n  \n  \n    EDW_ACCESS_VIEWS \n    BI_SALES \n    SALES_TRANSACTION_CAMPAIGN_ID \n    DECIMAL \n    The last campaign a visit clicked through before the given transaction \n  \n  \n    EDW_ACCESS_VIEWS \n    BI_SALES \n    REVENUE_TOP_LINE \n    DECIMAL \n    Top line revenue for a transaction \n  \n  \n    EDW_ACCESS_VIEWS \n    BI_SALES \n    REVENUE_BOTTOM_LINE \n    DECIMAL \n    Bottom line revenue for a transaction \n  \n  \n    EDW_ACCESS_VIEWS \n    BI_SALES \n    VISIT_ID \n    DECIMAL \n    ID for individual browsing sessions on website \n  \n  \n    EDW_ACCESS_VIEWS \n    BI_SALES \n    PRODUCT_ID \n    DECIMAL \n    ID for item purchased \n  \n  \n    EDW_ACCESS_VIEWS \n    BI_SALES \n    DEPARTMENT \n    SMALLINT \n    Department of the product in a given transaction \n  \n  \n    EDW_ACCESS_VIEWS \n    BI_SALES \n    SALES_TRANSACTION_DATE \n    DATE \n    Date of sale \n  \n  \n    EDW_ACCESS_VIEWS \n    BI_CAMPAIGN_DESCRIPTION \n    CAMPAIGN_ID \n    DECIMAL \n    Primary Unique Key - Campaign ID for each marketing campaign run \n  \n  \n    EDW_ACCESS_VIEWS \n    BI_CAMPAIGN_DESCRIPTION \n    CAMPAIGN_DESCRIPTION \n    VARCHAR \n    Description of the campaign \n  \n  \n    EDW_ACCESS_VIEWS \n    BI_CAMPAIGN_DESCRIPTION \n    CHANNEL_DESCRIPTION \n    VARCHAR \n    Marketing channel the campaign belongs to"
+  },
+  {
+    "objectID": "sql.html#question-1",
+    "href": "sql.html#question-1",
+    "title": "SQL and Database",
+    "section": "Question 1",
+    "text": "Question 1\nShow me sale revenue (top line & bottom line) by Marketing channel for the past 90 days trended by day."
+  },
+  {
+    "objectID": "sql.html#answer-1",
+    "href": "sql.html#answer-1",
+    "title": "SQL and Database",
+    "section": "Answer 1",
+    "text": "Answer 1\n\n\n\n\nWITH sales_data AS (\n  SELECT SALES_TRANSACTION_DATE AS \"DATE\"\n    , CHANNEL_DESCRIPTION AS \"MARKETING CHANNEL\"\n    , SUM(REVENUE_TOP_LINE) AS \"TOP LINE REVENUE\"\n    , SUM(REVENUE_BOTTOM_LINE) AS \"BOTTOM LINE REVENUE\"\n  FROM BI_SALES\n  LEFT JOIN BI_CAMPAIGN_DESCRIPTION\n  ON SALES_TRANSACTION_CAMPAIGN_ID = CAMPAIGN_ID\n  WHERE SALES_TRANSACTION_DATE >= DATETIME('now', '-90 day')\n  GROUP BY SALES_TRANSACTION_DATE, CHANNEL_DESCRIPTION\n  ORDER BY SALES_TRANSACTION_DATE DESC\n)\n\nSELECT *\n  , (\"TOP LINE REVENUE\" - LEAD(\"TOP LINE REVENUE\", 1) OVER(PARTITION BY \"MARKETING CHANNEL\" ORDER BY \"DATE\" DESC)) / LEAD(\"TOP LINE REVENUE\", 1) OVER(PARTITION BY \"MARKETING CHANNEL\" ORDER BY \"DATE\" DESC) * 100 AS \"DAILY TOP LINE TREND\"\n  , (\"BOTTOM LINE REVENUE\" - LEAD(\"BOTTOM LINE REVENUE\", 1) OVER(PARTITION BY \"MARKETING CHANNEL\" ORDER BY \"DATE\" DESC)) / LEAD(\"BOTTOM LINE REVENUE\", 1) OVER(PARTITION BY \"MARKETING CHANNEL\" ORDER BY \"DATE\" DESC) * 100 AS \"DAILY BOTTOM LINE TREND\"\nFROM sales_data;\n\n\n\n\nDisplaying records 1 - 10\n\n\n\n\nDATE\n\n\nMARKETING CHANNEL\n\n\nTOP LINE REVENUE\n\n\nBOTTOM LINE REVENUE\n\n\nDAILY TOP LINE TREND\n\n\nDAILY BOTTOM LINE TREND\n\n\n\n\n\n\n2023-02-24\n\n\nChannel 1\n\n\n1300.1400\n\n\n1261.1358\n\n\n126.119956\n\n\n126.156451\n\n\n\n\n2023-02-23\n\n\nChannel 1\n\n\n574.9780\n\n\n557.6387\n\n\n-50.473918\n\n\n-50.481910\n\n\n\n\n2023-02-22\n\n\nChannel 1\n\n\n1160.9600\n\n\n1126.1312\n\n\n-33.389179\n\n\n-33.389179\n\n\n\n\n2023-02-21\n\n\nChannel 1\n\n\n1742.9000\n\n\n1690.6130\n\n\n360.432377\n\n\n360.545262\n\n\n\n\n2023-02-20\n\n\nChannel 1\n\n\n378.5355\n\n\n367.0894\n\n\n-73.245917\n\n\n-73.252474\n\n\n\n\n2023-02-19\n\n\nChannel 1\n\n\n1414.8700\n\n\n1372.4239\n\n\n-11.045236\n\n\n-11.040047\n\n\n\n\n2023-02-18\n\n\nChannel 1\n\n\n1590.5500\n\n\n1542.7435\n\n\n119.698330\n\n\n119.685514\n\n\n\n\n2023-02-17\n\n\nChannel 1\n\n\n723.9700\n\n\n702.2509\n\n\n-24.209083\n\n\n-24.209083\n\n\n\n\n2023-02-16\n\n\nChannel 1\n\n\n955.2200\n\n\n926.5634\n\n\n19.710755\n\n\n19.710755\n\n\n\n\n2023-02-15\n\n\nChannel 1\n\n\n797.9400\n\n\n774.0018\n\n\n-3.646726\n\n\n-3.646726"
+  },
+  {
+    "objectID": "sql.html#question-2",
+    "href": "sql.html#question-2",
+    "title": "SQL and Database",
+    "section": "Question 2",
+    "text": "Question 2\nShow me the number of visits, visitors and bounce rate for each Marketing Channel for the past 90 days trended by day. (Hint: Bounce rate = Single page view visits / total visits)"
+  },
+  {
+    "objectID": "sql.html#answer-2",
+    "href": "sql.html#answer-2",
+    "title": "SQL and Database",
+    "section": "Answer 2",
+    "text": "Answer 2"
+  },
+  {
+    "objectID": "sql.html#question-3",
+    "href": "sql.html#question-3",
+    "title": "SQL and Database",
+    "section": "Question 3",
+    "text": "Question 3\nShow me the number of visits each Marketing channel acquired and the revenue (top line & Bottom line) for each last clicked Marketing channel for the past 90 days trended by day. Calculate conversion rate (orders/visits). Answer in one query."
+  },
+  {
+    "objectID": "sql.html#answer-3",
+    "href": "sql.html#answer-3",
+    "title": "SQL and Database",
+    "section": "Answer 3",
+    "text": "Answer 3\n\nWITH sales_data AS (\n  SELECT SALES_TRANSACTION_DATE AS \"DATE\"\n    , CHANNEL_DESCRIPTION AS \"MARKETING CHANNEL\"\n    , SUM(REVENUE_TOP_LINE) AS \"TOP LINE REVENUE\"\n    , SUM(REVENUE_BOTTOM_LINE) AS \"BOTTOM LINE REVENUE\"\n  FROM BI_SALES\n  LEFT JOIN BI_CAMPAIGN_DESCRIPTION\n  ON SALES_TRANSACTION_CAMPAIGN_ID = CAMPAIGN_ID\n  WHERE SALES_TRANSACTION_DATE >= DATETIME('now', '-90 day')\n  GROUP BY SALES_TRANSACTION_DATE, CHANNEL_DESCRIPTION\n  ORDER BY SALES_TRANSACTION_DATE DESC\n)\n\nSELECT *\n  , (\"TOP LINE REVENUE\" - LEAD(\"TOP LINE REVENUE\", 1) OVER(PARTITION BY \"MARKETING CHANNEL\" ORDER BY \"DATE\" DESC)) / LEAD(\"TOP LINE REVENUE\", 1) OVER(PARTITION BY \"MARKETING CHANNEL\" ORDER BY \"DATE\" DESC) * 100 AS \"DAILY TOP LINE TREND\"\n  , (\"BOTTOM LINE REVENUE\" - LEAD(\"BOTTOM LINE REVENUE\", 1) OVER(PARTITION BY \"MARKETING CHANNEL\" ORDER BY \"DATE\" DESC)) / LEAD(\"BOTTOM LINE REVENUE\", 1) OVER(PARTITION BY \"MARKETING CHANNEL\" ORDER BY \"DATE\" DESC) * 100 AS \"DAILY BOTTOM LINE TREND\"\nFROM sales_data;\n\n\n\n\nDisplaying records 1 - 10\n\n\n\n\nDATE\n\n\nMARKETING CHANNEL\n\n\nTOP LINE REVENUE\n\n\nBOTTOM LINE REVENUE\n\n\nDAILY TOP LINE TREND\n\n\nDAILY BOTTOM LINE TREND\n\n\n\n\n\n\n2023-02-24\n\n\nChannel 1\n\n\n1300.1400\n\n\n1261.1358\n\n\n126.119956\n\n\n126.156451\n\n\n\n\n2023-02-23\n\n\nChannel 1\n\n\n574.9780\n\n\n557.6387\n\n\n-50.473918\n\n\n-50.481910\n\n\n\n\n2023-02-22\n\n\nChannel 1\n\n\n1160.9600\n\n\n1126.1312\n\n\n-33.389179\n\n\n-33.389179\n\n\n\n\n2023-02-21\n\n\nChannel 1\n\n\n1742.9000\n\n\n1690.6130\n\n\n360.432377\n\n\n360.545262\n\n\n\n\n2023-02-20\n\n\nChannel 1\n\n\n378.5355\n\n\n367.0894\n\n\n-73.245917\n\n\n-73.252474\n\n\n\n\n2023-02-19\n\n\nChannel 1\n\n\n1414.8700\n\n\n1372.4239\n\n\n-11.045236\n\n\n-11.040047\n\n\n\n\n2023-02-18\n\n\nChannel 1\n\n\n1590.5500\n\n\n1542.7435\n\n\n119.698330\n\n\n119.685514\n\n\n\n\n2023-02-17\n\n\nChannel 1\n\n\n723.9700\n\n\n702.2509\n\n\n-24.209083\n\n\n-24.209083\n\n\n\n\n2023-02-16\n\n\nChannel 1\n\n\n955.2200\n\n\n926.5634\n\n\n19.710755\n\n\n19.710755\n\n\n\n\n2023-02-15\n\n\nChannel 1\n\n\n797.9400\n\n\n774.0018\n\n\n-3.646726\n\n\n-3.646726"
   }
 ]
