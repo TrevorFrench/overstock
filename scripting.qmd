@@ -27,9 +27,63 @@ knitr::kable(head(df, n = 10))
 
 Within this 90-day data set, we observe traffic from an "Unidentified"marketing channel coming to the site. We would like to identify the number of "existing" customers by day from this channel. ("Existing" customers are defined as those who have made a purchase in the past) Please demonstrate this result in a visualization. Are there any insights that you could derive from the visualization? What is the total spend amount and daily average spend on these existing customers?
 
-Q3. We believe that the Brand channel drives more New Customers than Existing Customers. We would like to verify this statement using the data provided. Please provide the daily difference between Brand channel's New Customers and Existing Customers using a visualization. Are there any insights from the visualization?
+```{r}
+#| output: false
 
-Q4. Please calculate 'Marketing_Contribution' using formula: Marketing_Contribution = Gross_Profit - Marketing_Spend. Make a plot of the daily Marketing_Contribution at the aggregated level (for all channels and customer types together)
+library(dplyr)
+unidentified <- filter(df, Customer_Type == "EXISTING" & Channel == "Unidentified")
+head(unidentified, n = 10)
+```
+
+```{r}
+#| echo: false
+knitr::kable(head(unidentified, n = 10))
+```
+
+```{r}
+barplot(unidentified$Customer_Count, main="Customer Count by Day")
+```
+
+```{r}
+sum(unidentified$Marketing_Spend)
+mean(unidentified$Marketing_Spend)
+```
+
+## Question 3
+
+We believe that the Brand channel drives more New Customers than Existing Customers. We would like to verify this statement using the data provided. Please provide the daily difference between Brand channel's New Customers and Existing Customers using a visualization. Are there any insights from the visualization?
+
+```{r}
+#| output: false
+brand <- df |>
+  filter(df$Channel == "Brand")
+brand <- brand |>
+  mutate("New" = if_else(Customer_Type == "NEW", Customer_Count, 0)) |>
+  mutate("Existing" = if_else(Customer_Type == "EXISTING", Customer_Count, 0))
+brand <- brand |> group_by(Date)
+brand <- brand |> summarise(
+    New = sum(New),
+    Existing = sum(Existing)
+)
+brand[is.na(brand)] <- 0
+brand <- brand |>
+  mutate("Delta" = New - Existing)
+
+head(brand, n = 10)
+```
+
+```{r}
+#| echo: false
+knitr::kable(head(brand, n = 10))
+```
+
+```{r}
+barplot(brand$Delta, main="New vs. Existing Customers")
+```
+
+## Question 4
+
+Please calculate 'Marketing_Contribution' using formula: Marketing_Contribution = Gross_Profit - Marketing_Spend. Make a plot of the daily Marketing_Contribution at the aggregated level (for all channels and customer types together)
 
 Q5. Find correlation between Paid Search Revenue and Organic Search Revenue - as a calculation as well as a plot.
 
