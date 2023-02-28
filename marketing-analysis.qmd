@@ -1,0 +1,15 @@
+---
+title: "Marketing Analysis"
+---
+
+Situation: You are currently in position 3 of a paid text search keyword. The click-through rate (clicks per impressions) is 1% and the cost-per-click (CPC) is \$1. You can get into position 1 by paying \$2 CPC and would expect a CTR of 2%. In position 2, your CPC would be \$1.5 and you would expect a CTR of 1.5%. Conversion Rate (conversions per click) is 5% for all positions. (CvR) Gross margin per conversion is 20% (before advertising cost). Average Order (conversion) Value is \$200. (AOV)
+
+The table below summarizes the above information:
+
+| Ad Position | CTR   | CvR | Gross Margin | CPC    | AOV   |
+|-------------|-------|-----|--------------|--------|-------|
+| 1           | 2.00% | 5%  | 20%          | \$2.00 | \$200 |
+| 2           | 1.50% | 5%  | 20%          | \$1.50 | \$200 |
+| 3           | 1.00% | 5%  | 20%          | \$1.00 | \$200 |
+
+Question Q1. What is the cost per conversion in position 1? Q2. What is the cost per conversion in position 2? Q3. What is the cost per conversion in position 3? Q4. If goal is to maximize absolute net profit, then which position you would want to be in? Q4. If goal is to maximize overall traffic, then which position you would want to be in? "Q5. Compare that with the most profitable position (from the answer of the previous question) and calculate the % extra cost you would have to pay to sustain this position?" Q6. What is return on ad spend (ROAS) of the additional conversions gained by moving from position 3 to position 2?

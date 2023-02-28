@@ -1,0 +1,135 @@
+---
+title: "SQL and Database"
+---
+
+# Instructions
+
+The top 18 columns show a simplistic overview of 3 tables we have at Overstock.com.  Your task will be to write SQL as if you were querying these tables to retrieve the data as specified in the questions.
+
+The questions will require you to join tables and make calculations within the SQL to get the desired output.
+
+Please note column E (notes) to verify you are using columns and data correctly as you write the SQL.
+
+## Database Metadata
+
+```{r}
+#| echo: false
+
+df <- read.csv("data/database-metadata.csv", check.names = F)
+# knitr::kable(df)
+kableExtra::kbl(df) |>
+  kableExtra::kable_styling(font_size = 12)
+```
+
+# Questions
+
+## Question 1
+
+Show me sale revenue (top line & bottom line) by Marketing channel for the past 90 days trended by day.
+
+## Answer 1
+
+```{r}
+#| echo: false
+#| warning: false
+#| output: false
+library(tidyverse)
+library(DBI)
+library(RSQLite)
+library(dbplyr)
+
+BI_VISIT <- read.csv("data/bi-visit.csv", check.names = F)
+BI_SALES <- read.csv("data/bi-sales.csv", check.names = F)
+BI_CAMPAIGN_DESCRIPTION <- read.csv("data/bi-campaign-description.csv", check.names = F)
+
+con <- DBI::dbConnect(RSQLite::SQLite(), 
+                      dbname = ":memory:")
+copy_to(dest = con, 
+        df = BI_VISIT, 
+        name = "BI_VISIT")
+
+copy_to(dest = con, 
+        df = BI_SALES, 
+        name = "BI_SALES")
+
+copy_to(dest = con, 
+        df = BI_CAMPAIGN_DESCRIPTION, 
+        name = "BI_CAMPAIGN_DESCRIPTION")
+
+# dbListTables(con)
+```
+
+```{sql max.print = 10}
+#| connection: con
+WITH sales_data AS (
+  SELECT SALES_TRANSACTION_DATE AS "DATE"
+    , CHANNEL_DESCRIPTION AS "MARKETING CHANNEL"
+    , SUM(REVENUE_TOP_LINE) AS "TOP LINE REVENUE"
+    , SUM(REVENUE_BOTTOM_LINE) AS "BOTTOM LINE REVENUE"
+  FROM BI_SALES
+  LEFT JOIN BI_CAMPAIGN_DESCRIPTION
+  ON SALES_TRANSACTION_CAMPAIGN_ID = CAMPAIGN_ID
+  WHERE SALES_TRANSACTION_DATE >= DATETIME('now', '-90 day')
+  GROUP BY SALES_TRANSACTION_DATE, CHANNEL_DESCRIPTION
+  ORDER BY SALES_TRANSACTION_DATE DESC
+)
+
+SELECT *
+  , ("TOP LINE REVENUE" - LEAD("TOP LINE REVENUE", 1) OVER(ORDER BY "DATE" DESC)) / LEAD("TOP LINE REVENUE", 1) OVER(ORDER BY "DATE" DESC) * 100 AS "DAILY TOP LINE TREND"
+  , ("BOTTOM LINE REVENUE" - LEAD("BOTTOM LINE REVENUE", 1) OVER(ORDER BY "DATE" DESC)) / LEAD("BOTTOM LINE REVENUE", 1) OVER(ORDER BY "DATE" DESC) * 100 AS "DAILY BOTTOM LINE TREND"
+FROM sales_data;
+```
+
+## Question 2
+
+Show me the number of visits, visitors and bounce rate for each Marketing Channel for the past 90 days trended by day. (Hint: Bounce rate = Single page view visits / total visits)
+
+## Answer 2
+
+```{sql max.print = 10}
+#| connection: con
+WITH sales_data AS (
+  SELECT SALES_TRANSACTION_DATE AS "DATE"
+    , CHANNEL_DESCRIPTION AS "MARKETING CHANNEL"
+    , SUM(REVENUE_TOP_LINE) AS "TOP LINE REVENUE"
+    , SUM(REVENUE_BOTTOM_LINE) AS "BOTTOM LINE REVENUE"
+  FROM BI_SALES
+  LEFT JOIN BI_CAMPAIGN_DESCRIPTION
+  ON SALES_TRANSACTION_CAMPAIGN_ID = CAMPAIGN_ID
+  WHERE SALES_TRANSACTION_DATE >= DATETIME('now', '-90 day')
+  GROUP BY SALES_TRANSACTION_DATE, CHANNEL_DESCRIPTION
+  ORDER BY SALES_TRANSACTION_DATE DESC
+)
+
+SELECT *
+  , ("TOP LINE REVENUE" - LEAD("TOP LINE REVENUE", 1) OVER(ORDER BY "DATE" DESC)) / LEAD("TOP LINE REVENUE", 1) OVER(ORDER BY "DATE" DESC) * 100 AS "DAILY TOP LINE TREND"
+  , ("BOTTOM LINE REVENUE" - LEAD("BOTTOM LINE REVENUE", 1) OVER(ORDER BY "DATE" DESC)) / LEAD("BOTTOM LINE REVENUE", 1) OVER(ORDER BY "DATE" DESC) * 100 AS "DAILY BOTTOM LINE TREND"
+FROM sales_data;
+```
+
+## Question 3
+
+Show me the number of visits each Marketing channel acquired and the revenue (top line & Bottom line) for each last clicked Marketing channel for the past 90 days trended by day.  Calculate conversion rate (orders/visits). Answer in one query.
+
+## Answer 3
+
+```{sql max.print = 10}
+#| connection: con
+WITH sales_data AS (
+  SELECT SALES_TRANSACTION_DATE AS "DATE"
+    , CHANNEL_DESCRIPTION AS "MARKETING CHANNEL"
+    , SUM(REVENUE_TOP_LINE) AS "TOP LINE REVENUE"
+    , SUM(REVENUE_BOTTOM_LINE) AS "BOTTOM LINE REVENUE"
+  FROM BI_SALES
+  LEFT JOIN BI_CAMPAIGN_DESCRIPTION
+  ON SALES_TRANSACTION_CAMPAIGN_ID = CAMPAIGN_ID
+  WHERE SALES_TRANSACTION_DATE >= DATETIME('now', '-90 day')
+  GROUP BY SALES_TRANSACTION_DATE, CHANNEL_DESCRIPTION
+  ORDER BY SALES_TRANSACTION_DATE DESC
+)
+
+SELECT *
+  , ("TOP LINE REVENUE" - LEAD("TOP LINE REVENUE", 1) OVER(ORDER BY "DATE" DESC)) / LEAD("TOP LINE REVENUE", 1) OVER(ORDER BY "DATE" DESC) * 100 AS "DAILY TOP LINE TREND"
+  , ("BOTTOM LINE REVENUE" - LEAD("BOTTOM LINE REVENUE", 1) OVER(ORDER BY "DATE" DESC)) / LEAD("BOTTOM LINE REVENUE", 1) OVER(ORDER BY "DATE" DESC) * 100 AS "DAILY BOTTOM LINE TREND"
+FROM sales_data;
+```

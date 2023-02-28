@@ -1,11 +1,23 @@
 ---
-title: "overstock"
+title: "Overstock Analyst Assessment"
 ---
 
-This is a Quarto website.
+# Instructions
 
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
+1.  This is a time-based test. You have 48 hours to submit the completed test since the time you received it.
+2.  Open book case study. You may refer to any materials (online, offline, etc.); however, you can not speak to or communicate with (in person or electronically) to receive any type of help or hints.
+3.  Please assume you're presenting your answers to executives and should format your spreadsheet accordingly (solution part only, not raw data, etc.)
 
-```{r}
-1 + 1
-```
+# Navigation
+
+1.  SQL and Database
+
+2.  Excel Basic Functions
+    -  Basic Functions I
+    -   Basic Functions II
+    
+3.  Marketing Analysis
+    -   Paid Digital Marketing Analysis
+    -   Ad Placement Analysis
+    
+4.  Scripting Test (R or Python)

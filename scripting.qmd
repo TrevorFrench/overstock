@@ -1,0 +1,37 @@
+---
+title: "Scripting Test"
+---
+
+# Instructions
+
+The objective of this exercise is to test your ability to read, clean, transform, visualize and interpret data using R or Python. You are provided a CSV file with some sample marketing sales data for an e-commerce website. You may choose either R or Python to complete the exercise. If you prefer, then you may also use R markdown or Python notebook format.
+
+# R
+
+Q1. Read the data into an R or Pandas data frame. Display the top 10 rows of the data frame. 
+
+Q2. Within this 90-day data set, we observe traffic from an "Unidentified "marketing channel coming to the site. We would like to identify the number of “existing” customers by day from this channel. (“Existing” customers are defined as those who have made a purchase in the past)
+Please demonstrate this result in a visualization. Are there any insights that you could derive from the visualization?
+What is the total spend amount and daily average spend on these existing customers?
+
+
+Q3. We believe that the Brand channel drives more New Customers than Existing Customers. We would like to verify this statement using the data provided. Please provide the daily difference between Brand channel’s New Customers and Existing Customers using a visualization. Are there any insights from the visualization?
+
+Q4. Please calculate ‘Marketing_Contribution’ using formula: Marketing_Contribution = Gross_Profit - Marketing_Spend. Make a plot of the daily Marketing_Contribution at the aggregated level (for all channels and customer types together)
+
+Q5. Find correlation between Paid Search Revenue and Organic Search Revenue - as a calculation as well as a plot.
+
+# Python
+
+Q1. Read the data into an R or Pandas data frame. Display the top 10 rows of the data frame. 
+
+Q2. Within this 90-day data set, we observe traffic from an "Unidentified "marketing channel coming to the site. We would like to identify the number of “existing” customers by day from this channel. (“Existing” customers are defined as those who have made a purchase in the past)
+Please demonstrate this result in a visualization. Are there any insights that you could derive from the visualization?
+What is the total spend amount and daily average spend on these existing customers?
+
+
+Q3. We believe that the Brand channel drives more New Customers than Existing Customers. We would like to verify this statement using the data provided. Please provide the daily difference between Brand channel’s New Customers and Existing Customers using a visualization. Are there any insights from the visualization?
+
+Q4. Please calculate ‘Marketing_Contribution’ using formula: Marketing_Contribution = Gross_Profit - Marketing_Spend. Make a plot of the daily Marketing_Contribution at the aggregated level (for all channels and customer types together)
+
+Q5. Find correlation between Paid Search Revenue and Organic Search Revenue - as a calculation as well as a plot.

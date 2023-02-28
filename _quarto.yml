@@ -2,12 +2,35 @@ project:
   type: website
 
 website:
+  page-navigation: true
   title: "overstock"
-  navbar:
-    left:
+  sidebar:
+    background: "#F5F5F5"
+    logo: "images/logo.svg"
+    pinned: true
+    align: center
+    tools:
+      - icon: github
+        href: https://github.com/TrevorFrench/overstock
+        text: "GitHub"
+      - icon: person-fill
+        href: https://trevorfrench.com
+        text: "Portfolio"
+      - icon: linkedin
+        href: https://www.linkedin.com/in/frenchtrevor/
+        text: "Portfolio"
+    style: "docked"
+    contents:
       - href: index.qmd
         text: Home
-      - about.qmd
+      - href: sql.qmd
+        text: SQL and Database
+      - href: excel.qmd
+        text: Excel Basic Functions
+      - href: marketing-analysis.qmd
+        text: Marketing Analysis
+      - href: scripting.qmd
+        text: Scripting Test
 
 format:
   html:
