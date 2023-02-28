@@ -748,7 +748,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(mc<span class="sc">$</span>Marketing_Contribution, <span class="at">main=</span><span class="st">"New vs. Existing Customers"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(mc<span class="sc">$</span>Marketing_Contribution, <span class="at">main=</span><span class="st">"Marketing Contribution"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="scripting_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -757,6 +757,96 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="question-5" class="level2">
 <h2 class="anchored" data-anchor-id="question-5">Question 5</h2>
 <p>Find correlation between Paid Search Revenue and Organic Search Revenue - as a calculation as well as a plot.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>search <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(df<span class="sc">$</span>Channel <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Paid Search"</span>, <span class="st">"Organic Search"</span>))</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>search <span class="ot">&lt;-</span> search <span class="sc">|&gt;</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="st">"Paid"</span> <span class="ot">=</span> <span class="fu">if_else</span>(Channel <span class="sc">==</span> <span class="st">"Paid Search"</span>, Revenue, <span class="dv">0</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="st">"Organic"</span> <span class="ot">=</span> <span class="fu">if_else</span>(Channel <span class="sc">==</span> <span class="st">"Organic Search"</span>, Revenue, <span class="dv">0</span>))</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>search <span class="ot">&lt;-</span> search <span class="sc">|&gt;</span> <span class="fu">group_by</span>(Date)</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>search <span class="ot">&lt;-</span> search <span class="sc">|&gt;</span> <span class="fu">summarise</span>(</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">Paid =</span> <span class="fu">sum</span>(Paid),</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">Organic =</span> <span class="fu">sum</span>(Organic)</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>search[<span class="fu">is.na</span>(search)] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(search, <span class="at">n =</span> <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table table-sm table-striped">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Date</th>
+<th style="text-align: right;">Paid</th>
+<th style="text-align: right;">Organic</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">1/1/2017</td>
+<td style="text-align: right;">304585.5</td>
+<td style="text-align: right;">201553.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1/10/2017</td>
+<td style="text-align: right;">225208.6</td>
+<td style="text-align: right;">128184.4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">1/11/2017</td>
+<td style="text-align: right;">198156.8</td>
+<td style="text-align: right;">123618.3</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1/12/2017</td>
+<td style="text-align: right;">210197.6</td>
+<td style="text-align: right;">125007.6</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">1/13/2017</td>
+<td style="text-align: right;">175905.2</td>
+<td style="text-align: right;">103175.5</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1/14/2017</td>
+<td style="text-align: right;">208245.9</td>
+<td style="text-align: right;">150135.4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">1/15/2017</td>
+<td style="text-align: right;">236808.2</td>
+<td style="text-align: right;">180538.1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1/16/2017</td>
+<td style="text-align: right;">268583.6</td>
+<td style="text-align: right;">179252.9</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">1/17/2017</td>
+<td style="text-align: right;">205861.5</td>
+<td style="text-align: right;">146634.5</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1/18/2017</td>
+<td style="text-align: right;">217794.6</td>
+<td style="text-align: right;">139864.3</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(search<span class="sc">$</span>Paid, search<span class="sc">$</span>Organic)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.8457697</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(search<span class="sc">$</span>Paid, search<span class="sc">$</span>Organic)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="scripting_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
 </section>
 </section>
 <section id="python" class="level1">
@@ -765,9 +855,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2 class="anchored" data-anchor-id="question-1-1">Question 1</h2>
 <p>Read the data into an R or Pandas data frame. Display the top 10 rows of the data frame.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"data/scripting-test.csv"</span>)</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>df.head(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"data/scripting-test.csv"</span>)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>df.head(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       Date         Channel  ... Gross_Profit  Marketing_Spend
 0  1/1/2017  Organic Social  ...       700.84           201.79
