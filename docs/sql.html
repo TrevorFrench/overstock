@@ -1,0 +1,1338 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.269">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>overstock - SQL and Database</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./excel.html" rel="next">
+<link href="./index.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar docked">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">SQL and Database</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-center sidebar-header">
+      <a href="./index.html" class="sidebar-logo-link">
+      <img src="./images/logo.svg" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+      <div class="sidebar-tools-main tools-wide">
+    <a href="" title="GitHub" id="sidebar-tool-dropdown-0" class="sidebar-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-github"></i></a>
+    <ul class="dropdown-menu" aria-labelledby="sidebar-tool-dropdown-0">
+        <li>
+          <a class="dropdown-item sidebar-tools-main-item" href="https://github.com/TrevorFrench/overstock">
+          Repository
+          </a>
+        </li>
+        <li>
+          <a class="dropdown-item sidebar-tools-main-item" href="https://github.com/TrevorFrench">
+          Profile
+          </a>
+        </li>
+    </ul>
+    <a href="https://trevorfrench.com" title="Portfolio" class="sidebar-tool px-1"><i class="bi bi-person-fill"></i></a>
+    <a href="https://www.linkedin.com/in/frenchtrevor/" title="LinkedIn" class="sidebar-tool px-1"><i class="bi bi-linkedin"></i></a>
+    <a href="https://twitter.com/TrvrFrnch" title="Twitter" class="sidebar-tool px-1"><i class="bi bi-twitter"></i></a>
+    <a href="https://www.youtube.com/@TrevorFrench" title="Youtube" class="sidebar-tool px-1"><i class="bi bi-youtube"></i></a>
+    <a href="https://medium.com/@FrenchTrevor" title="Medium" class="sidebar-tool px-1"><i class="bi bi-medium"></i></a>
+</div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">Home</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./sql.html" class="sidebar-item-text sidebar-link active">SQL and Database</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./excel.html" class="sidebar-item-text sidebar-link">Excel Basic Functions</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./marketing-analysis.html" class="sidebar-item-text sidebar-link">Marketing Analysis</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./scripting.html" class="sidebar-item-text sidebar-link">Scripting Test</a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#instructions" id="toc-instructions" class="nav-link active" data-scroll-target="#instructions">Instructions</a>
+  <ul class="collapse">
+  <li><a href="#database-metadata" id="toc-database-metadata" class="nav-link" data-scroll-target="#database-metadata">Database Metadata</a></li>
+  </ul></li>
+  <li><a href="#questions" id="toc-questions" class="nav-link" data-scroll-target="#questions">Questions</a>
+  <ul class="collapse">
+  <li><a href="#question-1" id="toc-question-1" class="nav-link" data-scroll-target="#question-1">Question 1</a>
+  <ul class="collapse">
+  <li><a href="#prompt" id="toc-prompt" class="nav-link" data-scroll-target="#prompt">Prompt</a></li>
+  <li><a href="#answer" id="toc-answer" class="nav-link" data-scroll-target="#answer">Answer</a></li>
+  </ul></li>
+  <li><a href="#question-2" id="toc-question-2" class="nav-link" data-scroll-target="#question-2">Question 2</a>
+  <ul class="collapse">
+  <li><a href="#prompt-1" id="toc-prompt-1" class="nav-link" data-scroll-target="#prompt-1">Prompt</a></li>
+  <li><a href="#answer-1" id="toc-answer-1" class="nav-link" data-scroll-target="#answer-1">Answer</a></li>
+  </ul></li>
+  <li><a href="#question-3" id="toc-question-3" class="nav-link" data-scroll-target="#question-3">Question 3</a>
+  <ul class="collapse">
+  <li><a href="#prompt-2" id="toc-prompt-2" class="nav-link" data-scroll-target="#prompt-2">Prompt</a></li>
+  <li><a href="#answer-2" id="toc-answer-2" class="nav-link" data-scroll-target="#answer-2">Answer</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">SQL and Database</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="instructions" class="level1">
+<h1>Instructions</h1>
+<p>The top 18 columns show a simplistic overview of 3 tables we have at Overstock.com. Your task will be to write SQL as if you were querying these tables to retrieve the data as specified in the questions.</p>
+<p>The questions will require you to join tables and make calculations within the SQL to get the desired output.</p>
+<p>Please note column E (notes) to verify you are using columns and data correctly as you write the SQL.</p>
+<section id="database-metadata" class="level2">
+<h2 class="anchored" data-anchor-id="database-metadata">Database Metadata</h2>
+<div class="cell">
+<div class="cell-output-display">
+
+<table class="table" style="font-size: 12px; margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> Database </th>
+   <th style="text-align:left;"> Tables </th>
+   <th style="text-align:left;"> Columns </th>
+   <th style="text-align:left;"> Value type </th>
+   <th style="text-align:left;"> Notes </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> EDW_ACCESS_VIEWS </td>
+   <td style="text-align:left;"> BI_VISIT </td>
+   <td style="text-align:left;"> VISIT_ID </td>
+   <td style="text-align:left;"> DECIMAL </td>
+   <td style="text-align:left;"> Primary Unique Key - ID for individual browsing sessions on website </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> EDW_ACCESS_VIEWS </td>
+   <td style="text-align:left;"> BI_VISIT </td>
+   <td style="text-align:left;"> VISITOR_ID </td>
+   <td style="text-align:left;"> DECIMAL </td>
+   <td style="text-align:left;"> ID for individuals on website </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> EDW_ACCESS_VIEWS </td>
+   <td style="text-align:left;"> BI_VISIT </td>
+   <td style="text-align:left;"> VISIT_DT </td>
+   <td style="text-align:left;"> DATE </td>
+   <td style="text-align:left;"> Date of visit to website </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> EDW_ACCESS_VIEWS </td>
+   <td style="text-align:left;"> BI_VISIT </td>
+   <td style="text-align:left;"> FIRST_PAGE_VIEW_CAMPAIGN_ID </td>
+   <td style="text-align:left;"> DECIMAL </td>
+   <td style="text-align:left;"> Campaign ID for the first webpage a visit views.  The campaign that drove the visitor to view the website. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> EDW_ACCESS_VIEWS </td>
+   <td style="text-align:left;"> BI_VISIT </td>
+   <td style="text-align:left;"> PAGE_VIEW_COUNT </td>
+   <td style="text-align:left;"> INTEGER </td>
+   <td style="text-align:left;"> A count of pages viewed in a given visit </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> EDW_ACCESS_VIEWS </td>
+   <td style="text-align:left;"> BI_SALES </td>
+   <td style="text-align:left;"> SALES_TRANSACTION_ID </td>
+   <td style="text-align:left;"> INTEGER </td>
+   <td style="text-align:left;"> ID for individual sale transactions </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> EDW_ACCESS_VIEWS </td>
+   <td style="text-align:left;"> BI_SALES </td>
+   <td style="text-align:left;"> SALES_TRANSACTION_LINE_ID </td>
+   <td style="text-align:left;"> INTEGER </td>
+   <td style="text-align:left;"> Primary Unique Key - ID for individual items purchased in a sale transaction </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> EDW_ACCESS_VIEWS </td>
+   <td style="text-align:left;"> BI_SALES </td>
+   <td style="text-align:left;"> SALES_TRANSACTION_CAMPAIGN_ID </td>
+   <td style="text-align:left;"> DECIMAL </td>
+   <td style="text-align:left;"> The last campaign a visit clicked through before the given transaction </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> EDW_ACCESS_VIEWS </td>
+   <td style="text-align:left;"> BI_SALES </td>
+   <td style="text-align:left;"> REVENUE_TOP_LINE </td>
+   <td style="text-align:left;"> DECIMAL </td>
+   <td style="text-align:left;"> Top line revenue for a transaction </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> EDW_ACCESS_VIEWS </td>
+   <td style="text-align:left;"> BI_SALES </td>
+   <td style="text-align:left;"> REVENUE_BOTTOM_LINE </td>
+   <td style="text-align:left;"> DECIMAL </td>
+   <td style="text-align:left;"> Bottom line revenue for a transaction </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> EDW_ACCESS_VIEWS </td>
+   <td style="text-align:left;"> BI_SALES </td>
+   <td style="text-align:left;"> VISIT_ID </td>
+   <td style="text-align:left;"> DECIMAL </td>
+   <td style="text-align:left;"> ID for individual browsing sessions on website </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> EDW_ACCESS_VIEWS </td>
+   <td style="text-align:left;"> BI_SALES </td>
+   <td style="text-align:left;"> PRODUCT_ID </td>
+   <td style="text-align:left;"> DECIMAL </td>
+   <td style="text-align:left;"> ID for item purchased </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> EDW_ACCESS_VIEWS </td>
+   <td style="text-align:left;"> BI_SALES </td>
+   <td style="text-align:left;"> DEPARTMENT </td>
+   <td style="text-align:left;"> SMALLINT </td>
+   <td style="text-align:left;"> Department of the product in a given transaction </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> EDW_ACCESS_VIEWS </td>
+   <td style="text-align:left;"> BI_SALES </td>
+   <td style="text-align:left;"> SALES_TRANSACTION_DATE </td>
+   <td style="text-align:left;"> DATE </td>
+   <td style="text-align:left;"> Date of sale </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> EDW_ACCESS_VIEWS </td>
+   <td style="text-align:left;"> BI_CAMPAIGN_DESCRIPTION </td>
+   <td style="text-align:left;"> CAMPAIGN_ID </td>
+   <td style="text-align:left;"> DECIMAL </td>
+   <td style="text-align:left;"> Primary Unique Key - Campaign ID for each marketing campaign run </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> EDW_ACCESS_VIEWS </td>
+   <td style="text-align:left;"> BI_CAMPAIGN_DESCRIPTION </td>
+   <td style="text-align:left;"> CAMPAIGN_DESCRIPTION </td>
+   <td style="text-align:left;"> VARCHAR </td>
+   <td style="text-align:left;"> Description of the campaign </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> EDW_ACCESS_VIEWS </td>
+   <td style="text-align:left;"> BI_CAMPAIGN_DESCRIPTION </td>
+   <td style="text-align:left;"> CHANNEL_DESCRIPTION </td>
+   <td style="text-align:left;"> VARCHAR </td>
+   <td style="text-align:left;"> Marketing channel the campaign belongs to </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</section>
+</section>
+<section id="questions" class="level1">
+<h1>Questions</h1>
+<section id="question-1" class="level2">
+<h2 class="anchored" data-anchor-id="question-1">Question 1</h2>
+<section id="prompt" class="level3">
+<h3 class="anchored" data-anchor-id="prompt">Prompt</h3>
+<p>Show me sale revenue (top line &amp; bottom line) by Marketing channel for the past 90 days trended by day.</p>
+</section>
+<section id="answer" class="level3">
+<h3 class="anchored" data-anchor-id="answer">Answer</h3>
+<div class="cell">
+
+</div>
+<p>The following query sums top-line revenue along with bottom line revenue and groups it day and channel for 90 days from the date the query is executed. There are also two additional columns which show the day-over-day trend for each day and channel.</p>
+<div class="cell" data-max.print="10">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">WITH</span> sales_data <span class="kw">AS</span> (</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">SELECT</span> SALES_TRANSACTION_DATE <span class="kw">AS</span> <span class="ot">"DAY"</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    , CHANNEL_DESCRIPTION <span class="kw">AS</span> <span class="ot">"CHANNEL"</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    , <span class="fu">SUM</span>(REVENUE_TOP_LINE) <span class="kw">AS</span> <span class="ot">"TOP_LINE"</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    , <span class="fu">LEAD</span>(<span class="fu">SUM</span>(REVENUE_TOP_LINE), <span class="dv">1</span>) </span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>      <span class="kw">OVER</span>(</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>        <span class="kw">PARTITION</span> <span class="kw">BY</span> CHANNEL_DESCRIPTION </span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>        <span class="kw">ORDER</span> <span class="kw">BY</span> SALES_TRANSACTION_DATE <span class="kw">DESC</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>      ) <span class="kw">AS</span> <span class="ot">"TOP_LAG"</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    , <span class="fu">SUM</span>(REVENUE_BOTTOM_LINE) <span class="kw">AS</span> <span class="ot">"BOTTOM_LINE"</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    , <span class="fu">LEAD</span>(<span class="fu">SUM</span>(REVENUE_BOTTOM_LINE), <span class="dv">1</span>) </span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>      <span class="kw">OVER</span>(</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>        <span class="kw">PARTITION</span> <span class="kw">BY</span> CHANNEL_DESCRIPTION </span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>        <span class="kw">ORDER</span> <span class="kw">BY</span> SALES_TRANSACTION_DATE <span class="kw">DESC</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>      ) <span class="kw">AS</span> <span class="ot">"BOTTOM_LAG"</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  <span class="kw">FROM</span> BI_SALES</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>  <span class="kw">LEFT</span> <span class="kw">JOIN</span> BI_CAMPAIGN_DESCRIPTION</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>  <span class="kw">ON</span> SALES_TRANSACTION_CAMPAIGN_ID <span class="op">=</span> CAMPAIGN_ID</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>  <span class="kw">WHERE</span> SALES_TRANSACTION_DATE <span class="op">&gt;=</span> DATETIME(<span class="st">'now'</span>, <span class="st">'-90 day'</span>)</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>  <span class="kw">GROUP</span> <span class="kw">BY</span> SALES_TRANSACTION_DATE, CHANNEL_DESCRIPTION</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>  <span class="kw">ORDER</span> <span class="kw">BY</span> SALES_TRANSACTION_DATE <span class="kw">DESC</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="dt">DAY</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>  , CHANNEL</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>  , TOP_LINE</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>  , (TOP_LINE <span class="op">-</span> TOP_LAG) <span class="op">/</span> TOP_LAG <span class="op">*</span> <span class="dv">100</span> <span class="kw">AS</span> <span class="ot">"% DAILY TOP LINE TREND"</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>  , BOTTOM_LINE</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>  , (BOTTOM_LINE <span class="op">-</span> BOTTOM_LAG) <span class="op">/</span> BOTTOM_LAG <span class="kw">AS</span> <span class="ot">"% DAILY BOTTOM LINE TREND"</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> sales_data;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="knitsql-table">
+
+<table>
+<caption>
+Displaying records 1 - 10
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+DAY
+</th>
+<th style="text-align:left;">
+CHANNEL
+</th>
+<th style="text-align:right;">
+TOP_LINE
+</th>
+<th style="text-align:right;">
+% DAILY TOP LINE TREND
+</th>
+<th style="text-align:right;">
+BOTTOM_LINE
+</th>
+<th style="text-align:right;">
+% DAILY BOTTOM LINE TREND
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+2023-02-24
+</td>
+<td style="text-align:left;">
+Channel 1
+</td>
+<td style="text-align:right;">
+1300.1400
+</td>
+<td style="text-align:right;">
+126.11996
+</td>
+<td style="text-align:right;">
+1261.13580
+</td>
+<td style="text-align:right;">
+1.2615645
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2023-02-24
+</td>
+<td style="text-align:left;">
+Channel 2
+</td>
+<td style="text-align:right;">
+91.4460
+</td>
+<td style="text-align:right;">
+-82.93377
+</td>
+<td style="text-align:right;">
+88.61262
+</td>
+<td style="text-align:right;">
+-0.8295108
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2023-02-23
+</td>
+<td style="text-align:left;">
+Channel 1
+</td>
+<td style="text-align:right;">
+574.9780
+</td>
+<td style="text-align:right;">
+-50.47392
+</td>
+<td style="text-align:right;">
+557.63866
+</td>
+<td style="text-align:right;">
+-0.5048191
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2023-02-23
+</td>
+<td style="text-align:left;">
+Channel 2
+</td>
+<td style="text-align:right;">
+535.8300
+</td>
+<td style="text-align:right;">
+1938.22892
+</td>
+<td style="text-align:right;">
+519.75510
+</td>
+<td style="text-align:right;">
+19.4544805
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2023-02-22
+</td>
+<td style="text-align:left;">
+Channel 1
+</td>
+<td style="text-align:right;">
+1160.9600
+</td>
+<td style="text-align:right;">
+-33.38918
+</td>
+<td style="text-align:right;">
+1126.13120
+</td>
+<td style="text-align:right;">
+-0.3338918
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2023-02-22
+</td>
+<td style="text-align:left;">
+Channel 2
+</td>
+<td style="text-align:right;">
+26.2890
+</td>
+<td style="text-align:right;">
+-68.55984
+</td>
+<td style="text-align:right;">
+25.41033
+</td>
+<td style="text-align:right;">
+-0.6863601
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2023-02-21
+</td>
+<td style="text-align:left;">
+Channel 1
+</td>
+<td style="text-align:right;">
+1742.9000
+</td>
+<td style="text-align:right;">
+360.43238
+</td>
+<td style="text-align:right;">
+1690.61300
+</td>
+<td style="text-align:right;">
+3.6054526
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2023-02-21
+</td>
+<td style="text-align:left;">
+Channel 2
+</td>
+<td style="text-align:right;">
+83.6160
+</td>
+<td style="text-align:right;">
+-70.04836
+</td>
+<td style="text-align:right;">
+81.01752
+</td>
+<td style="text-align:right;">
+-0.7008159
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2023-02-20
+</td>
+<td style="text-align:left;">
+Channel 1
+</td>
+<td style="text-align:right;">
+378.5355
+</td>
+<td style="text-align:right;">
+-73.24592
+</td>
+<td style="text-align:right;">
+367.08943
+</td>
+<td style="text-align:right;">
+-0.7325247
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2023-02-20
+</td>
+<td style="text-align:left;">
+Channel 2
+</td>
+<td style="text-align:right;">
+279.1700
+</td>
+<td style="text-align:right;">
+49.86056
+</td>
+<td style="text-align:right;">
+270.79490
+</td>
+<td style="text-align:right;">
+0.4993524
+</td>
+</tr>
+</tbody>
+
+</table>
+</div>
+</div>
+</section>
+</section>
+<section id="question-2" class="level2">
+<h2 class="anchored" data-anchor-id="question-2">Question 2</h2>
+<section id="prompt-1" class="level3">
+<h3 class="anchored" data-anchor-id="prompt-1">Prompt</h3>
+<p>Show me the number of visits, visitors and bounce rate for each Marketing Channel for the past 90 days trended by day. (Hint: Bounce rate = Single page view visits / total visits)</p>
+</section>
+<section id="answer-1" class="level3">
+<h3 class="anchored" data-anchor-id="answer-1">Answer</h3>
+<p>The following query counts distinct visits and visitors along with the bounce rate and groups it day and channel for 90 days from the date the query is executed.</p>
+<div class="cell" data-max.print="20">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">with</span> visits_data <span class="kw">AS</span> (</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">SELECT</span> VISIT_DT <span class="kw">AS</span> <span class="ot">"DAY"</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    , CHANNEL_DESCRIPTION <span class="kw">AS</span> <span class="ot">"CHANNEL"</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    , <span class="fu">COUNT</span>(<span class="kw">DISTINCT</span> VISIT_ID) <span class="kw">AS</span> <span class="ot">"VISITS"</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    , <span class="fu">COUNT</span>(<span class="kw">DISTINCT</span> VISITOR_ID) <span class="kw">AS</span> <span class="ot">"VISITORS"</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    , <span class="fu">SUM</span>(</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>      <span class="cf">CASE</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">WHEN</span> PAGE_VIEW_COUNT <span class="op">=</span> <span class="dv">1</span> <span class="cf">THEN</span> <span class="dv">1</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">ELSE</span> <span class="dv">0</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>      <span class="cf">END</span>) <span class="kw">AS</span> <span class="ot">"BOUNCES"</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="kw">FROM</span> BI_VISIT</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="kw">LEFT</span> <span class="kw">JOIN</span> BI_CAMPAIGN_DESCRIPTION</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="kw">ON</span> FIRST_PAGE_VIEW_CAMPAIGN_ID <span class="op">=</span> CAMPAIGN_ID</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  <span class="kw">WHERE</span> VISIT_DT <span class="op">&gt;=</span> DATETIME(<span class="st">'now'</span>, <span class="st">'-90 day'</span>)</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  <span class="kw">GROUP</span> <span class="kw">BY</span> VISIT_DT, CHANNEL_DESCRIPTION</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>  <span class="kw">ORDER</span> <span class="kw">BY</span> VISIT_DT <span class="kw">DESC</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="dt">DAY</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>  , CHANNEL</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>  , VISITS</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>  , VISITORS</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>  , BOUNCES <span class="op">/</span> VISITS <span class="kw">AS</span> <span class="ot">"BOUNCE RATE"</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> visits_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="knitsql-table">
+
+<table>
+<caption>
+10 records
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+DAY
+</th>
+<th style="text-align:left;">
+CHANNEL
+</th>
+<th style="text-align:right;">
+VISITS
+</th>
+<th style="text-align:right;">
+VISITORS
+</th>
+<th style="text-align:right;">
+BOUNCE RATE
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+2023-02-15
+</td>
+<td style="text-align:left;">
+Channel 1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2023-02-15
+</td>
+<td style="text-align:left;">
+Channel 2
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2023-02-14
+</td>
+<td style="text-align:left;">
+Channel 2
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2023-02-13
+</td>
+<td style="text-align:left;">
+Channel 1
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2023-02-13
+</td>
+<td style="text-align:left;">
+Channel 2
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2023-02-12
+</td>
+<td style="text-align:left;">
+Channel 1
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2023-02-12
+</td>
+<td style="text-align:left;">
+Channel 2
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2023-02-11
+</td>
+<td style="text-align:left;">
+Channel 1
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2023-02-10
+</td>
+<td style="text-align:left;">
+Channel 1
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2023-02-10
+</td>
+<td style="text-align:left;">
+Channel 2
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+</tbody>
+
+</table>
+</div>
+</div>
+</section>
+</section>
+<section id="question-3" class="level2">
+<h2 class="anchored" data-anchor-id="question-3">Question 3</h2>
+<section id="prompt-2" class="level3">
+<h3 class="anchored" data-anchor-id="prompt-2">Prompt</h3>
+<p>Show me the number of visits each Marketing channel acquired and the revenue (top line &amp; Bottom line) for each last clicked Marketing channel for the past 90 days trended by day. Calculate conversion rate (orders/visits). Answer in one query.</p>
+</section>
+<section id="answer-2" class="level3">
+<h3 class="anchored" data-anchor-id="answer-2">Answer</h3>
+<p>The following query counts the number of distinct visits, sums the top-line and bottom-line revenue, and calculates the conversion rate for each day and channel.</p>
+<div class="cell" data-max.print="10">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> SALES_TRANSACTION_DATE <span class="kw">AS</span> <span class="ot">"DAY"</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  , CHANNEL_DESCRIPTION <span class="kw">AS</span> <span class="ot">"CHANNEL"</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  , <span class="fu">COUNT</span>(<span class="kw">DISTINCT</span> BI_VISIT.VISIT_ID) <span class="kw">AS</span> <span class="ot">"VISITS"</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  , <span class="fu">SUM</span>(REVENUE_TOP_LINE) <span class="kw">AS</span> <span class="ot">"TOP LINE"</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  , <span class="fu">SUM</span>(REVENUE_BOTTOM_LINE) <span class="kw">AS</span> <span class="ot">"BOTTOM_LINE"</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  , <span class="fu">COUNT</span>(<span class="kw">DISTINCT</span> SALES_TRANSACTION_ID) <span class="op">/</span> <span class="fu">COUNT</span>(<span class="kw">DISTINCT</span> BI_VISIT.VISIT_ID) <span class="kw">AS</span> <span class="ot">"CONVERSION RATE"</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> BI_VISIT</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="kw">LEFT</span> <span class="kw">JOIN</span> BI_SALES <span class="kw">ON</span> BI_VISIT.VISIT_ID <span class="op">=</span> BI_SALES.VISIT_ID</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="kw">LEFT</span> <span class="kw">JOIN</span> BI_CAMPAIGN_DESCRIPTION <span class="kw">ON</span> SALES_TRANSACTION_CAMPAIGN_ID <span class="op">=</span> CAMPAIGN_ID</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> SALES_TRANSACTION_DATE <span class="op">&gt;=</span> DATETIME(<span class="st">'now'</span>, <span class="st">'-90 day'</span>)</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span> SALES_TRANSACTION_DATE, CHANNEL_DESCRIPTION</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">BY</span> SALES_TRANSACTION_DATE <span class="kw">DESC</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="knitsql-table">
+
+<table>
+<caption>
+Displaying records 1 - 10
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+DAY
+</th>
+<th style="text-align:left;">
+CHANNEL
+</th>
+<th style="text-align:right;">
+VISITS
+</th>
+<th style="text-align:right;">
+TOP LINE
+</th>
+<th style="text-align:right;">
+BOTTOM_LINE
+</th>
+<th style="text-align:right;">
+CONVERSION RATE
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+2023-02-24
+</td>
+<td style="text-align:left;">
+Channel 1
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+1300.1400
+</td>
+<td style="text-align:right;">
+1261.13580
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2023-02-24
+</td>
+<td style="text-align:left;">
+Channel 2
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+91.4460
+</td>
+<td style="text-align:right;">
+88.61262
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2023-02-23
+</td>
+<td style="text-align:left;">
+Channel 1
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+574.9780
+</td>
+<td style="text-align:right;">
+557.63866
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2023-02-23
+</td>
+<td style="text-align:left;">
+Channel 2
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+535.8300
+</td>
+<td style="text-align:right;">
+519.75510
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2023-02-22
+</td>
+<td style="text-align:left;">
+Channel 1
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+1160.9600
+</td>
+<td style="text-align:right;">
+1126.13120
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2023-02-22
+</td>
+<td style="text-align:left;">
+Channel 2
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+26.2890
+</td>
+<td style="text-align:right;">
+25.41033
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2023-02-21
+</td>
+<td style="text-align:left;">
+Channel 1
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+1742.9000
+</td>
+<td style="text-align:right;">
+1690.61300
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2023-02-21
+</td>
+<td style="text-align:left;">
+Channel 2
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+83.6160
+</td>
+<td style="text-align:right;">
+81.01752
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2023-02-20
+</td>
+<td style="text-align:left;">
+Channel 1
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+378.5355
+</td>
+<td style="text-align:right;">
+367.08943
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2023-02-20
+</td>
+<td style="text-align:left;">
+Channel 2
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+279.1700
+</td>
+<td style="text-align:right;">
+270.79490
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+</tbody>
+
+</table>
+</div>
+</div>
+
+
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./index.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Home</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./excel.html" class="pagination-link">
+        <span class="nav-page-text">Excel Basic Functions</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>

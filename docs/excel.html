@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>overstock - Overstock Analyst Assessment</title>
+<title>overstock - Excel Basic Functions</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -29,7 +29,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./sql.html" rel="next">
+<link href="./marketing-analysis.html" rel="next">
+<link href="./sql.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -69,7 +70,7 @@ ul.task-list li input[type="checkbox"] {
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title">Overstock Analyst Assessment</h1>
+      <h1 class="quarto-secondary-nav-title">Excel Basic Functions</h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -114,7 +115,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">Home</a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link">Home</a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -124,7 +125,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./excel.html" class="sidebar-item-text sidebar-link">Excel Basic Functions</a>
+  <a href="./excel.html" class="sidebar-item-text sidebar-link active">Excel Basic Functions</a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -146,8 +147,16 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#instructions" id="toc-instructions" class="nav-link active" data-scroll-target="#instructions">Instructions</a></li>
-  <li><a href="#navigation" id="toc-navigation" class="nav-link" data-scroll-target="#navigation">Navigation</a></li>
+  <li><a href="#basic-functions-i" id="toc-basic-functions-i" class="nav-link active" data-scroll-target="#basic-functions-i">Basic Functions I</a>
+  <ul class="collapse">
+  <li><a href="#instructions" id="toc-instructions" class="nav-link" data-scroll-target="#instructions">Instructions</a></li>
+  <li><a href="#answer" id="toc-answer" class="nav-link" data-scroll-target="#answer">Answer</a></li>
+  </ul></li>
+  <li><a href="#basic-functions-ii" id="toc-basic-functions-ii" class="nav-link" data-scroll-target="#basic-functions-ii">Basic Functions II</a>
+  <ul class="collapse">
+  <li><a href="#instructions-1" id="toc-instructions-1" class="nav-link" data-scroll-target="#instructions-1">Instructions</a></li>
+  <li><a href="#answers" id="toc-answers" class="nav-link" data-scroll-target="#answers">Answers</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -156,7 +165,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block">Overstock Analyst Assessment</h1>
+<h1 class="title d-none d-lg-block">Excel Basic Functions</h1>
 </div>
 
 
@@ -171,46 +180,75 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<section id="instructions" class="level1">
-<h1>Instructions</h1>
-<ol type="1">
-<li>This is a time-based test. You have 48 hours to submit the completed test since the time you received it.</li>
-<li>Open book case study. You may refer to any materials (online, offline, etc.); however, you can not speak to or communicate with (in person or electronically) to receive any type of help or hints.</li>
-<li>Please assume you’re presenting your answers to executives and should format your spreadsheet accordingly (solution part only, not raw data, etc.)</li>
-</ol>
+<section id="basic-functions-i" class="level1">
+<h1>Basic Functions I</h1>
+<section id="instructions" class="level2">
+<h2 class="anchored" data-anchor-id="instructions">Instructions</h2>
+<p>Using Excel’s built in functionality, split the values in column D into first and last names. Please show your work (i.e., show your formulas).</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="images/bf1-instructions.png" class="img-fluid" style="background-color: #545658; padding:10px; display: block; margin-left: auto; margin-right: auto; width: 80%;" width="500"></p>
+</div>
+</div>
 </section>
-<section id="navigation" class="level1">
-<h1>Navigation</h1>
-<ol type="1">
-<li><a href="https://trevorfrench.github.io/overstock/sql.html">SQL and Database</a>
-<ul>
-<li><a href="https://trevorfrench.github.io/overstock/sql.html#question-1">Question 1</a></li>
-<li><a href="https://trevorfrench.github.io/overstock/sql.html#question-2">Question 2</a></li>
-<li><a href="https://trevorfrench.github.io/overstock/sql.html#question-3">Question 3</a></li>
-</ul></li>
-<li><a href="https://trevorfrench.github.io/overstock/excel.html">Excel Basic Functions</a>
-<ul>
-<li><a href="https://trevorfrench.github.io/overstock/excel.html#basic-functions-i">Basic Functions I</a></li>
-<li><a href="https://trevorfrench.github.io/overstock/excel.html#basic-functions-ii">Basic Functions II</a></li>
-</ul></li>
-<li><a href="https://trevorfrench.github.io/overstock/marketing-analysis.html">Marketing Analysis</a>
-<ul>
-<li><a href="https://trevorfrench.github.io/overstock/marketing-analysis.html#question-1">Question 1</a></li>
-<li><a href="https://trevorfrench.github.io/overstock/marketing-analysis.html#question-2">Question 2</a></li>
-<li><a href="https://trevorfrench.github.io/overstock/marketing-analysis.html#question-3">Question 3</a></li>
-<li><a href="https://trevorfrench.github.io/overstock/marketing-analysis.html#question-4">Question 4</a></li>
-<li><a href="https://trevorfrench.github.io/overstock/marketing-analysis.html#question-5">Question 5</a></li>
-<li><a href="https://trevorfrench.github.io/overstock/marketing-analysis.html#question-6">Question 6</a></li>
-<li><a href="https://trevorfrench.github.io/overstock/marketing-analysis.html#question-7">Question 7</a></li>
-</ul></li>
-<li><a href="https://trevorfrench.github.io/overstock/scripting.html">Scripting Test (R or Python)</a>
-<ul>
-<li><a href="https://trevorfrench.github.io/overstock/scripting.html#r">R</a></li>
-<li><a href="https://trevorfrench.github.io/overstock/scripting.html#python">Python</a></li>
-</ul></li>
-</ol>
+<section id="answer" class="level2">
+<h2 class="anchored" data-anchor-id="answer">Answer</h2>
+<p>We can split the values in column D by locating the index of the comma with the “FIND” function, the length of the string with the “LEN” function, and then applying the “LEFT” and “RIGHT” functions as is demonstrated in the following image.</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="images/bf1-answer1.png" class="img-fluid" style="background-color: #545658; padding:10px; display: block; margin-left: auto; margin-right: auto; width: 80%;" width="500"></p>
+</div>
+</div>
+<p>These functions can then be combined into just two cells as follows.</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="images/bf1-answer2.png" class="img-fluid" style="background-color: #545658; padding:10px; display: block; margin-left: auto; margin-right: auto; width: 80%;" width="500"></p>
+</div>
+</div>
+<p>The final result looks like the following image.</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="images/bf1-answer3.png" class="img-fluid" style="background-color: #545658; padding:10px; display: block; margin-left: auto; margin-right: auto; width: 80%;" width="500"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="basic-functions-ii" class="level1">
+<h1>Basic Functions II</h1>
+<section id="instructions-1" class="level2">
+<h2 class="anchored" data-anchor-id="instructions-1">Instructions</h2>
+<p><strong>Step 1:</strong> Using a formula in cell G5, count how many associates have quality greater than 90% and pieces per hour greater than 45.</p>
+<p><strong>Step 2:</strong> Using a formula in cell G9, what is the average quality and pieces per hour for the associates on Jason’s team?</p>
+<p><strong>Step 3:</strong> Using a formula in cell G13, what is the average pieces per hour for associates with quality lower than 89%?</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="images/bf2-instructions.png" class="img-fluid" style="background-color: #545658; padding:10px; display: block; margin-left: auto; margin-right: auto; width: 80%;" width="500"></p>
+</div>
+</div>
+</section>
+<section id="answers" class="level2">
+<h2 class="anchored" data-anchor-id="answers">Answers</h2>
+<p><strong>Step 1:</strong> =COUNTIFS(C:C,“&gt;”&amp;0.9,D:D,“&gt;”&amp;45)</p>
+<p><strong>Step 2a:</strong> =AVERAGEIF(B:B,“=”&amp;“Jason”,C:C)</p>
+<p><strong>Step 2b:</strong> =AVERAGEIF(B:B,“=”&amp;“Jason”,D:D)</p>
+<p><strong>Step 3:</strong> =AVERAGEIF(C:C,“&lt;”&amp;0.89,D:D)</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="images/bf2-answer1.png" class="img-fluid" style="background-color: #545658; padding:10px; display: block; margin-left: auto; margin-right: auto; width: 80%;" width="500"></p>
+</div>
+</div>
+<p><strong>Step 1:</strong> 3</p>
+<p><strong>Step 2a:</strong> 89%</p>
+<p><strong>Step 2b:</strong> 42.31</p>
+<p><strong>Step 3:</strong> 43.21</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="images/bf2-answer2.png" class="img-fluid" style="background-color: #545658; padding:10px; display: block; margin-left: auto; margin-right: auto; width: 80%;" width="500"></p>
+</div>
+</div>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -349,10 +387,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./sql.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">SQL and Database</span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./sql.html" class="pagination-link">
-        <span class="nav-page-text">SQL and Database</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./marketing-analysis.html" class="pagination-link">
+        <span class="nav-page-text">Marketing Analysis</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

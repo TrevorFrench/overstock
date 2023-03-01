@@ -75,5 +75,117 @@
     "title": "Scripting Test",
     "section": "Question 5",
     "text": "Question 5\nFind correlation between Paid Search Revenue and Organic Search Revenue - as a calculation as well as a plot.\n\nsearch = df[(df.Channel == \"Paid Search\") | (df.Channel == \"Organic Search\")]\nsearch[\"Paid\"] = search.apply(lambda x: x[\"Revenue\"] if x[\"Channel\"] == \"Paid Search\" else 0, axis=1)\nsearch[\"Organic\"] = search.apply(lambda x: x[\"Revenue\"] if x[\"Channel\"] == \"Organic Search\" else 0, axis=1)\nsearch = search.groupby(\"Date\")[[\"Paid\", \"Organic\"]].agg([\"sum\"])\n\n\nsearch.corr()\n\n                Paid  Organic\n                 sum      sum\nPaid    sum  1.00000  0.84577\nOrganic sum  0.84577  1.00000\n\nplt.scatter(search.Paid, search.Organic)\nplt.show()"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Overstock Analyst Assessment",
+    "section": "",
+    "text": "Instructions\n\nThis is a time-based test. You have 48 hours to submit the completed test since the time you received it.\nOpen book case study. You may refer to any materials (online, offline, etc.); however, you can not speak to or communicate with (in person or electronically) to receive any type of help or hints.\nPlease assume you’re presenting your answers to executives and should format your spreadsheet accordingly (solution part only, not raw data, etc.)\n\n\n\nNavigation\n\nSQL and Database\n\nQuestion 1\nQuestion 2\nQuestion 3\n\nExcel Basic Functions\n\nBasic Functions I\nBasic Functions II\n\nMarketing Analysis\n\nQuestion 1\nQuestion 2\nQuestion 3\nQuestion 4\nQuestion 5\nQuestion 6\nQuestion 7\n\nScripting Test (R or Python)\n\nR\nPython"
+  },
+  {
+    "objectID": "sql.html",
+    "href": "sql.html",
+    "title": "SQL and Database",
+    "section": "",
+    "text": "The top 18 columns show a simplistic overview of 3 tables we have at Overstock.com. Your task will be to write SQL as if you were querying these tables to retrieve the data as specified in the questions.\nThe questions will require you to join tables and make calculations within the SQL to get the desired output.\nPlease note column E (notes) to verify you are using columns and data correctly as you write the SQL.\n\n\n\n\n\n\n \n  \n    Database \n    Tables \n    Columns \n    Value type \n    Notes \n  \n \n\n  \n    EDW_ACCESS_VIEWS \n    BI_VISIT \n    VISIT_ID \n    DECIMAL \n    Primary Unique Key - ID for individual browsing sessions on website \n  \n  \n    EDW_ACCESS_VIEWS \n    BI_VISIT \n    VISITOR_ID \n    DECIMAL \n    ID for individuals on website \n  \n  \n    EDW_ACCESS_VIEWS \n    BI_VISIT \n    VISIT_DT \n    DATE \n    Date of visit to website \n  \n  \n    EDW_ACCESS_VIEWS \n    BI_VISIT \n    FIRST_PAGE_VIEW_CAMPAIGN_ID \n    DECIMAL \n    Campaign ID for the first webpage a visit views.  The campaign that drove the visitor to view the website. \n  \n  \n    EDW_ACCESS_VIEWS \n    BI_VISIT \n    PAGE_VIEW_COUNT \n    INTEGER \n    A count of pages viewed in a given visit \n  \n  \n    EDW_ACCESS_VIEWS \n    BI_SALES \n    SALES_TRANSACTION_ID \n    INTEGER \n    ID for individual sale transactions \n  \n  \n    EDW_ACCESS_VIEWS \n    BI_SALES \n    SALES_TRANSACTION_LINE_ID \n    INTEGER \n    Primary Unique Key - ID for individual items purchased in a sale transaction \n  \n  \n    EDW_ACCESS_VIEWS \n    BI_SALES \n    SALES_TRANSACTION_CAMPAIGN_ID \n    DECIMAL \n    The last campaign a visit clicked through before the given transaction \n  \n  \n    EDW_ACCESS_VIEWS \n    BI_SALES \n    REVENUE_TOP_LINE \n    DECIMAL \n    Top line revenue for a transaction \n  \n  \n    EDW_ACCESS_VIEWS \n    BI_SALES \n    REVENUE_BOTTOM_LINE \n    DECIMAL \n    Bottom line revenue for a transaction \n  \n  \n    EDW_ACCESS_VIEWS \n    BI_SALES \n    VISIT_ID \n    DECIMAL \n    ID for individual browsing sessions on website \n  \n  \n    EDW_ACCESS_VIEWS \n    BI_SALES \n    PRODUCT_ID \n    DECIMAL \n    ID for item purchased \n  \n  \n    EDW_ACCESS_VIEWS \n    BI_SALES \n    DEPARTMENT \n    SMALLINT \n    Department of the product in a given transaction \n  \n  \n    EDW_ACCESS_VIEWS \n    BI_SALES \n    SALES_TRANSACTION_DATE \n    DATE \n    Date of sale \n  \n  \n    EDW_ACCESS_VIEWS \n    BI_CAMPAIGN_DESCRIPTION \n    CAMPAIGN_ID \n    DECIMAL \n    Primary Unique Key - Campaign ID for each marketing campaign run \n  \n  \n    EDW_ACCESS_VIEWS \n    BI_CAMPAIGN_DESCRIPTION \n    CAMPAIGN_DESCRIPTION \n    VARCHAR \n    Description of the campaign \n  \n  \n    EDW_ACCESS_VIEWS \n    BI_CAMPAIGN_DESCRIPTION \n    CHANNEL_DESCRIPTION \n    VARCHAR \n    Marketing channel the campaign belongs to"
+  },
+  {
+    "objectID": "sql.html#question-1",
+    "href": "sql.html#question-1",
+    "title": "SQL and Database",
+    "section": "Question 1",
+    "text": "Question 1\n\nPrompt\nShow me sale revenue (top line & bottom line) by Marketing channel for the past 90 days trended by day.\n\n\nAnswer\n\n\n\nThe following query sums top-line revenue along with bottom line revenue and groups it day and channel for 90 days from the date the query is executed. There are also two additional columns which show the day-over-day trend for each day and channel.\n\nWITH sales_data AS (\n  SELECT SALES_TRANSACTION_DATE AS \"DAY\"\n    , CHANNEL_DESCRIPTION AS \"CHANNEL\"\n    , SUM(REVENUE_TOP_LINE) AS \"TOP_LINE\"\n    , LEAD(SUM(REVENUE_TOP_LINE), 1) \n      OVER(\n        PARTITION BY CHANNEL_DESCRIPTION \n        ORDER BY SALES_TRANSACTION_DATE DESC\n      ) AS \"TOP_LAG\"\n    , SUM(REVENUE_BOTTOM_LINE) AS \"BOTTOM_LINE\"\n    , LEAD(SUM(REVENUE_BOTTOM_LINE), 1) \n      OVER(\n        PARTITION BY CHANNEL_DESCRIPTION \n        ORDER BY SALES_TRANSACTION_DATE DESC\n      ) AS \"BOTTOM_LAG\"\n  FROM BI_SALES\n  LEFT JOIN BI_CAMPAIGN_DESCRIPTION\n  ON SALES_TRANSACTION_CAMPAIGN_ID = CAMPAIGN_ID\n  WHERE SALES_TRANSACTION_DATE >= DATETIME('now', '-90 day')\n  GROUP BY SALES_TRANSACTION_DATE, CHANNEL_DESCRIPTION\n  ORDER BY SALES_TRANSACTION_DATE DESC\n)\n\nSELECT DAY\n  , CHANNEL\n  , TOP_LINE\n  , (TOP_LINE - TOP_LAG) / TOP_LAG * 100 AS \"% DAILY TOP LINE TREND\"\n  , BOTTOM_LINE\n  , (BOTTOM_LINE - BOTTOM_LAG) / BOTTOM_LAG AS \"% DAILY BOTTOM LINE TREND\"\nFROM sales_data;\n\n\n\n\nDisplaying records 1 - 10\n\n\n\n\nDAY\n\n\nCHANNEL\n\n\nTOP_LINE\n\n\n% DAILY TOP LINE TREND\n\n\nBOTTOM_LINE\n\n\n% DAILY BOTTOM LINE TREND\n\n\n\n\n\n\n2023-02-24\n\n\nChannel 1\n\n\n1300.1400\n\n\n126.11996\n\n\n1261.13580\n\n\n1.2615645\n\n\n\n\n2023-02-24\n\n\nChannel 2\n\n\n91.4460\n\n\n-82.93377\n\n\n88.61262\n\n\n-0.8295108\n\n\n\n\n2023-02-23\n\n\nChannel 1\n\n\n574.9780\n\n\n-50.47392\n\n\n557.63866\n\n\n-0.5048191\n\n\n\n\n2023-02-23\n\n\nChannel 2\n\n\n535.8300\n\n\n1938.22892\n\n\n519.75510\n\n\n19.4544805\n\n\n\n\n2023-02-22\n\n\nChannel 1\n\n\n1160.9600\n\n\n-33.38918\n\n\n1126.13120\n\n\n-0.3338918\n\n\n\n\n2023-02-22\n\n\nChannel 2\n\n\n26.2890\n\n\n-68.55984\n\n\n25.41033\n\n\n-0.6863601\n\n\n\n\n2023-02-21\n\n\nChannel 1\n\n\n1742.9000\n\n\n360.43238\n\n\n1690.61300\n\n\n3.6054526\n\n\n\n\n2023-02-21\n\n\nChannel 2\n\n\n83.6160\n\n\n-70.04836\n\n\n81.01752\n\n\n-0.7008159\n\n\n\n\n2023-02-20\n\n\nChannel 1\n\n\n378.5355\n\n\n-73.24592\n\n\n367.08943\n\n\n-0.7325247\n\n\n\n\n2023-02-20\n\n\nChannel 2\n\n\n279.1700\n\n\n49.86056\n\n\n270.79490\n\n\n0.4993524"
+  },
+  {
+    "objectID": "sql.html#question-2",
+    "href": "sql.html#question-2",
+    "title": "SQL and Database",
+    "section": "Question 2",
+    "text": "Question 2\n\nPrompt\nShow me the number of visits, visitors and bounce rate for each Marketing Channel for the past 90 days trended by day. (Hint: Bounce rate = Single page view visits / total visits)\n\n\nAnswer\nThe following query counts distinct visits and visitors along with the bounce rate and groups it day and channel for 90 days from the date the query is executed.\n\nwith visits_data AS (\n  SELECT VISIT_DT AS \"DAY\"\n    , CHANNEL_DESCRIPTION AS \"CHANNEL\"\n    , COUNT(DISTINCT VISIT_ID) AS \"VISITS\"\n    , COUNT(DISTINCT VISITOR_ID) AS \"VISITORS\"\n    , SUM(\n      CASE\n        WHEN PAGE_VIEW_COUNT = 1 THEN 1\n        ELSE 0\n      END) AS \"BOUNCES\"\n  FROM BI_VISIT\n  LEFT JOIN BI_CAMPAIGN_DESCRIPTION\n  ON FIRST_PAGE_VIEW_CAMPAIGN_ID = CAMPAIGN_ID\n  WHERE VISIT_DT >= DATETIME('now', '-90 day')\n  GROUP BY VISIT_DT, CHANNEL_DESCRIPTION\n  ORDER BY VISIT_DT DESC\n)\n\nSELECT DAY\n  , CHANNEL\n  , VISITS\n  , VISITORS\n  , BOUNCES / VISITS AS \"BOUNCE RATE\"\nFROM visits_data\n\n\n\n\n10 records\n\n\n\n\nDAY\n\n\nCHANNEL\n\n\nVISITS\n\n\nVISITORS\n\n\nBOUNCE RATE\n\n\n\n\n\n\n2023-02-15\n\n\nChannel 1\n\n\n1\n\n\n1\n\n\n0\n\n\n\n\n2023-02-15\n\n\nChannel 2\n\n\n2\n\n\n2\n\n\n1\n\n\n\n\n2023-02-14\n\n\nChannel 2\n\n\n3\n\n\n2\n\n\n0\n\n\n\n\n2023-02-13\n\n\nChannel 1\n\n\n3\n\n\n2\n\n\n0\n\n\n\n\n2023-02-13\n\n\nChannel 2\n\n\n1\n\n\n1\n\n\n1\n\n\n\n\n2023-02-12\n\n\nChannel 1\n\n\n2\n\n\n2\n\n\n1\n\n\n\n\n2023-02-12\n\n\nChannel 2\n\n\n2\n\n\n2\n\n\n0\n\n\n\n\n2023-02-11\n\n\nChannel 1\n\n\n3\n\n\n3\n\n\n0\n\n\n\n\n2023-02-10\n\n\nChannel 1\n\n\n2\n\n\n2\n\n\n0\n\n\n\n\n2023-02-10\n\n\nChannel 2\n\n\n1\n\n\n1\n\n\n1"
+  },
+  {
+    "objectID": "sql.html#question-3",
+    "href": "sql.html#question-3",
+    "title": "SQL and Database",
+    "section": "Question 3",
+    "text": "Question 3\n\nPrompt\nShow me the number of visits each Marketing channel acquired and the revenue (top line & Bottom line) for each last clicked Marketing channel for the past 90 days trended by day. Calculate conversion rate (orders/visits). Answer in one query.\n\n\nAnswer\nThe following query counts the number of distinct visits, sums the top-line and bottom-line revenue, and calculates the conversion rate for each day and channel.\n\nSELECT SALES_TRANSACTION_DATE AS \"DAY\"\n  , CHANNEL_DESCRIPTION AS \"CHANNEL\"\n  , COUNT(DISTINCT BI_VISIT.VISIT_ID) AS \"VISITS\"\n  , SUM(REVENUE_TOP_LINE) AS \"TOP LINE\"\n  , SUM(REVENUE_BOTTOM_LINE) AS \"BOTTOM_LINE\"\n  , COUNT(DISTINCT SALES_TRANSACTION_ID) / COUNT(DISTINCT BI_VISIT.VISIT_ID) AS \"CONVERSION RATE\"\nFROM BI_VISIT\nLEFT JOIN BI_SALES ON BI_VISIT.VISIT_ID = BI_SALES.VISIT_ID\nLEFT JOIN BI_CAMPAIGN_DESCRIPTION ON SALES_TRANSACTION_CAMPAIGN_ID = CAMPAIGN_ID\nWHERE SALES_TRANSACTION_DATE >= DATETIME('now', '-90 day')\nGROUP BY SALES_TRANSACTION_DATE, CHANNEL_DESCRIPTION\nORDER BY SALES_TRANSACTION_DATE DESC\n\n\n\n\nDisplaying records 1 - 10\n\n\n\n\nDAY\n\n\nCHANNEL\n\n\nVISITS\n\n\nTOP LINE\n\n\nBOTTOM_LINE\n\n\nCONVERSION RATE\n\n\n\n\n\n\n2023-02-24\n\n\nChannel 1\n\n\n2\n\n\n1300.1400\n\n\n1261.13580\n\n\n1\n\n\n\n\n2023-02-24\n\n\nChannel 2\n\n\n1\n\n\n91.4460\n\n\n88.61262\n\n\n1\n\n\n\n\n2023-02-23\n\n\nChannel 1\n\n\n2\n\n\n574.9780\n\n\n557.63866\n\n\n1\n\n\n\n\n2023-02-23\n\n\nChannel 2\n\n\n2\n\n\n535.8300\n\n\n519.75510\n\n\n1\n\n\n\n\n2023-02-22\n\n\nChannel 1\n\n\n3\n\n\n1160.9600\n\n\n1126.13120\n\n\n1\n\n\n\n\n2023-02-22\n\n\nChannel 2\n\n\n1\n\n\n26.2890\n\n\n25.41033\n\n\n1\n\n\n\n\n2023-02-21\n\n\nChannel 1\n\n\n3\n\n\n1742.9000\n\n\n1690.61300\n\n\n1\n\n\n\n\n2023-02-21\n\n\nChannel 2\n\n\n1\n\n\n83.6160\n\n\n81.01752\n\n\n1\n\n\n\n\n2023-02-20\n\n\nChannel 1\n\n\n3\n\n\n378.5355\n\n\n367.08943\n\n\n1\n\n\n\n\n2023-02-20\n\n\nChannel 2\n\n\n1\n\n\n279.1700\n\n\n270.79490\n\n\n1"
+  },
+  {
+    "objectID": "excel.html",
+    "href": "excel.html",
+    "title": "Excel Basic Functions",
+    "section": "",
+    "text": "Using Excel’s built in functionality, split the values in column D into first and last names. Please show your work (i.e., show your formulas).\n\n\n\n\n\n\n\n\nWe can split the values in column D by locating the index of the comma with the “FIND” function, the length of the string with the “LEN” function, and then applying the “LEFT” and “RIGHT” functions as is demonstrated in the following image.\n\n\n\n\n\nThese functions can then be combined into just two cells as follows.\n\n\n\n\n\nThe final result looks like the following image."
+  },
+  {
+    "objectID": "excel.html#instructions-1",
+    "href": "excel.html#instructions-1",
+    "title": "Excel Basic Functions",
+    "section": "Instructions",
+    "text": "Instructions\nStep 1: Using a formula in cell G5, count how many associates have quality greater than 90% and pieces per hour greater than 45.\nStep 2: Using a formula in cell G9, what is the average quality and pieces per hour for the associates on Jason’s team?\nStep 3: Using a formula in cell G13, what is the average pieces per hour for associates with quality lower than 89%?"
+  },
+  {
+    "objectID": "excel.html#answers",
+    "href": "excel.html#answers",
+    "title": "Excel Basic Functions",
+    "section": "Answers",
+    "text": "Answers\nStep 1: =COUNTIFS(C:C,“>”&0.9,D:D,“>”&45)\nStep 2a: =AVERAGEIF(B:B,“=”&“Jason”,C:C)\nStep 2b: =AVERAGEIF(B:B,“=”&“Jason”,D:D)\nStep 3: =AVERAGEIF(C:C,“<”&0.89,D:D)\n\n\n\n\n\nStep 1: 3\nStep 2a: 89%\nStep 2b: 42.31\nStep 3: 43.21"
+  },
+  {
+    "objectID": "marketing-analysis.html",
+    "href": "marketing-analysis.html",
+    "title": "Marketing Analysis",
+    "section": "",
+    "text": "Impressions: How often your ad is shown. An impression is counted each time your ad is shown on a search result page\nClicks: When someone clicks your ad, like on the blue headline of a text ad. Only a small percentage of impressions lead to clicks.\nConversions: “An action that’s counted when someone interacts with your ad (for example, clicks a text ad) and then takes an action that you’ve defined as valuable to your business, such as an online purchase. For this test, we will consider a conversion to be a purchase on our website.”\nAd Position: The order in which your ad appears on a page in relation to other ads. An ad position of “1” means that your ad is the first ad on a page. Ads can appear on the top or bottom of a search results page.\nROAS: Return on Ad Spend - Total revenue / Ad Cost. Total revenue is the value of the conversions attributed to the ad spend incurred during a given time window."
+  },
+  {
+    "objectID": "marketing-analysis.html#question-1",
+    "href": "marketing-analysis.html#question-1",
+    "title": "Marketing Analysis",
+    "section": "Question 1",
+    "text": "Question 1\n\nPrompt\nWhat is the cost per conversion in position 1?\n\n\nAnswer\n\\[\nCPC / CvR\n\\]\n\\[\n$2.00 / .05 = $40.00\n\\]"
+  },
+  {
+    "objectID": "marketing-analysis.html#question-2",
+    "href": "marketing-analysis.html#question-2",
+    "title": "Marketing Analysis",
+    "section": "Question 2",
+    "text": "Question 2\n\nPrompt\nWhat is the cost per conversion in position 2?\n\n\nAnswer\n\\[\nCPC / CvR\n\\]\n\\[\n$1.50 / .05 = $30.00\n\\]"
+  },
+  {
+    "objectID": "marketing-analysis.html#question-3",
+    "href": "marketing-analysis.html#question-3",
+    "title": "Marketing Analysis",
+    "section": "Question 3",
+    "text": "Question 3\n\nPrompt\nWhat is the cost per conversion in position 3?\n\n\nAnswer\n\\[\nCPC / CvR\n\\]\n\\[\n$1.00 / .05 = $20.00\n\\]"
+  },
+  {
+    "objectID": "marketing-analysis.html#question-4",
+    "href": "marketing-analysis.html#question-4",
+    "title": "Marketing Analysis",
+    "section": "Question 4",
+    "text": "Question 4\n\nPrompt\nIf goal is to maximize absolute net profit, then which position you would want to be in?\n\n\nAnswer\nPosition 3 as it has the lowest cost per conversion (\\(CPC/CvR\\))."
+  },
+  {
+    "objectID": "marketing-analysis.html#question-5",
+    "href": "marketing-analysis.html#question-5",
+    "title": "Marketing Analysis",
+    "section": "Question 5",
+    "text": "Question 5\n\nPrompt\nIf goal is to maximize overall traffic, then which position you would want to be in?\n\n\nAnswer\nPosition 1 as it has the highest click-through rate."
+  },
+  {
+    "objectID": "marketing-analysis.html#question-6",
+    "href": "marketing-analysis.html#question-6",
+    "title": "Marketing Analysis",
+    "section": "Question 6",
+    "text": "Question 6\n\nPrompt\nCompare that with the most profitable position (from the answer of the previous question) and calculate the % extra cost you would have to pay to sustain this position?\n\n\nAnswer\nYou would need to pay 100% more to get into position 1 for the same amount of clicks in position 3."
+  },
+  {
+    "objectID": "marketing-analysis.html#question-7",
+    "href": "marketing-analysis.html#question-7",
+    "title": "Marketing Analysis",
+    "section": "Question 7",
+    "text": "Question 7\n\nPrompt\nWhat is return on ad spend (ROAS) of the additional conversions gained by moving from position 3 to position 2?\n\n\nAnswer\n\\[\nTotal Revenue / Ad Cost\n\\]\n\\[\n$200 / (1.50 / .05) = 6.67\n\\]"
   }
 ]

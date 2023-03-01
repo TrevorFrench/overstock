@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>overstock - Overstock Analyst Assessment</title>
+<title>overstock - Marketing Analysis</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -29,7 +29,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./sql.html" rel="next">
+<link href="./scripting.html" rel="next">
+<link href="./excel.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -59,6 +60,7 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -69,7 +71,7 @@ ul.task-list li input[type="checkbox"] {
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title">Overstock Analyst Assessment</h1>
+      <h1 class="quarto-secondary-nav-title">Marketing Analysis</h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -114,7 +116,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">Home</a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link">Home</a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -129,7 +131,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./marketing-analysis.html" class="sidebar-item-text sidebar-link">Marketing Analysis</a>
+  <a href="./marketing-analysis.html" class="sidebar-item-text sidebar-link active">Marketing Analysis</a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -146,8 +148,46 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#instructions" id="toc-instructions" class="nav-link active" data-scroll-target="#instructions">Instructions</a></li>
-  <li><a href="#navigation" id="toc-navigation" class="nav-link" data-scroll-target="#navigation">Navigation</a></li>
+  <li><a href="#key-terminology" id="toc-key-terminology" class="nav-link active" data-scroll-target="#key-terminology">Key Terminology</a></li>
+  <li><a href="#situation" id="toc-situation" class="nav-link" data-scroll-target="#situation">Situation</a></li>
+  <li><a href="#questions" id="toc-questions" class="nav-link" data-scroll-target="#questions">Questions</a>
+  <ul class="collapse">
+  <li><a href="#question-1" id="toc-question-1" class="nav-link" data-scroll-target="#question-1">Question 1</a>
+  <ul class="collapse">
+  <li><a href="#prompt" id="toc-prompt" class="nav-link" data-scroll-target="#prompt">Prompt</a></li>
+  <li><a href="#answer" id="toc-answer" class="nav-link" data-scroll-target="#answer">Answer</a></li>
+  </ul></li>
+  <li><a href="#question-2" id="toc-question-2" class="nav-link" data-scroll-target="#question-2">Question 2</a>
+  <ul class="collapse">
+  <li><a href="#prompt-1" id="toc-prompt-1" class="nav-link" data-scroll-target="#prompt-1">Prompt</a></li>
+  <li><a href="#answer-1" id="toc-answer-1" class="nav-link" data-scroll-target="#answer-1">Answer</a></li>
+  </ul></li>
+  <li><a href="#question-3" id="toc-question-3" class="nav-link" data-scroll-target="#question-3">Question 3</a>
+  <ul class="collapse">
+  <li><a href="#prompt-2" id="toc-prompt-2" class="nav-link" data-scroll-target="#prompt-2">Prompt</a></li>
+  <li><a href="#answer-2" id="toc-answer-2" class="nav-link" data-scroll-target="#answer-2">Answer</a></li>
+  </ul></li>
+  <li><a href="#question-4" id="toc-question-4" class="nav-link" data-scroll-target="#question-4">Question 4</a>
+  <ul class="collapse">
+  <li><a href="#prompt-3" id="toc-prompt-3" class="nav-link" data-scroll-target="#prompt-3">Prompt</a></li>
+  <li><a href="#answer-3" id="toc-answer-3" class="nav-link" data-scroll-target="#answer-3">Answer</a></li>
+  </ul></li>
+  <li><a href="#question-5" id="toc-question-5" class="nav-link" data-scroll-target="#question-5">Question 5</a>
+  <ul class="collapse">
+  <li><a href="#prompt-4" id="toc-prompt-4" class="nav-link" data-scroll-target="#prompt-4">Prompt</a></li>
+  <li><a href="#answer-4" id="toc-answer-4" class="nav-link" data-scroll-target="#answer-4">Answer</a></li>
+  </ul></li>
+  <li><a href="#question-6" id="toc-question-6" class="nav-link" data-scroll-target="#question-6">Question 6</a>
+  <ul class="collapse">
+  <li><a href="#prompt-5" id="toc-prompt-5" class="nav-link" data-scroll-target="#prompt-5">Prompt</a></li>
+  <li><a href="#answer-5" id="toc-answer-5" class="nav-link" data-scroll-target="#answer-5">Answer</a></li>
+  </ul></li>
+  <li><a href="#question-7" id="toc-question-7" class="nav-link" data-scroll-target="#question-7">Question 7</a>
+  <ul class="collapse">
+  <li><a href="#prompt-6" id="toc-prompt-6" class="nav-link" data-scroll-target="#prompt-6">Prompt</a></li>
+  <li><a href="#answer-6" id="toc-answer-6" class="nav-link" data-scroll-target="#answer-6">Answer</a></li>
+  </ul></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -156,7 +196,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block">Overstock Analyst Assessment</h1>
+<h1 class="title d-none d-lg-block">Marketing Analysis</h1>
 </div>
 
 
@@ -171,46 +211,158 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<section id="instructions" class="level1">
-<h1>Instructions</h1>
-<ol type="1">
-<li>This is a time-based test. You have 48 hours to submit the completed test since the time you received it.</li>
-<li>Open book case study. You may refer to any materials (online, offline, etc.); however, you can not speak to or communicate with (in person or electronically) to receive any type of help or hints.</li>
-<li>Please assume you’re presenting your answers to executives and should format your spreadsheet accordingly (solution part only, not raw data, etc.)</li>
-</ol>
+<section id="key-terminology" class="level1">
+<h1>Key Terminology</h1>
+<p><strong>Impressions:</strong> How often your ad is shown. An impression is counted each time your ad is shown on a search result page</p>
+<p><strong>Clicks:</strong> When someone clicks your ad, like on the blue headline of a text ad. Only a small percentage of impressions lead to clicks.</p>
+<p><strong>Conversions:</strong> “An action that’s counted when someone interacts with your ad (for example, clicks a text ad) and then takes an action that you’ve defined as valuable to your business, such as an online purchase. For this test, we will consider a conversion to be a purchase on our website.”</p>
+<p><strong>Ad Position:</strong> The order in which your ad appears on a page in relation to other ads. An ad position of “1” means that your ad is the first ad on a page. Ads can appear on the top or bottom of a search results page.</p>
+<p><strong>ROAS:</strong> Return on Ad Spend - Total revenue / Ad Cost. Total revenue is the value of the conversions attributed to the ad spend incurred during a given time window.</p>
 </section>
-<section id="navigation" class="level1">
-<h1>Navigation</h1>
-<ol type="1">
-<li><a href="https://trevorfrench.github.io/overstock/sql.html">SQL and Database</a>
-<ul>
-<li><a href="https://trevorfrench.github.io/overstock/sql.html#question-1">Question 1</a></li>
-<li><a href="https://trevorfrench.github.io/overstock/sql.html#question-2">Question 2</a></li>
-<li><a href="https://trevorfrench.github.io/overstock/sql.html#question-3">Question 3</a></li>
-</ul></li>
-<li><a href="https://trevorfrench.github.io/overstock/excel.html">Excel Basic Functions</a>
-<ul>
-<li><a href="https://trevorfrench.github.io/overstock/excel.html#basic-functions-i">Basic Functions I</a></li>
-<li><a href="https://trevorfrench.github.io/overstock/excel.html#basic-functions-ii">Basic Functions II</a></li>
-</ul></li>
-<li><a href="https://trevorfrench.github.io/overstock/marketing-analysis.html">Marketing Analysis</a>
-<ul>
-<li><a href="https://trevorfrench.github.io/overstock/marketing-analysis.html#question-1">Question 1</a></li>
-<li><a href="https://trevorfrench.github.io/overstock/marketing-analysis.html#question-2">Question 2</a></li>
-<li><a href="https://trevorfrench.github.io/overstock/marketing-analysis.html#question-3">Question 3</a></li>
-<li><a href="https://trevorfrench.github.io/overstock/marketing-analysis.html#question-4">Question 4</a></li>
-<li><a href="https://trevorfrench.github.io/overstock/marketing-analysis.html#question-5">Question 5</a></li>
-<li><a href="https://trevorfrench.github.io/overstock/marketing-analysis.html#question-6">Question 6</a></li>
-<li><a href="https://trevorfrench.github.io/overstock/marketing-analysis.html#question-7">Question 7</a></li>
-</ul></li>
-<li><a href="https://trevorfrench.github.io/overstock/scripting.html">Scripting Test (R or Python)</a>
-<ul>
-<li><a href="https://trevorfrench.github.io/overstock/scripting.html#r">R</a></li>
-<li><a href="https://trevorfrench.github.io/overstock/scripting.html#python">Python</a></li>
-</ul></li>
-</ol>
+<section id="situation" class="level1">
+<h1>Situation</h1>
+<p>You are currently in position 3 of a paid text search keyword. The click-through rate (clicks per impressions) is 1% and the cost-per-click (CPC) is $1. You can get into position 1 by paying $2 CPC and would expect a CTR of 2%. In position 2, your CPC would be $1.5 and you would expect a CTR of 1.5%. Conversion Rate (conversions per click) is 5% for all positions. (CvR) Gross margin per conversion is 20% (before advertising cost). Average Order (conversion) Value is $200. (AOV)</p>
+<p>The table below summarizes the above information:</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Ad Position</th>
+<th>CTR</th>
+<th>CvR</th>
+<th>Gross Margin</th>
+<th>CPC</th>
+<th>AOV</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>2.00%</td>
+<td>5%</td>
+<td>20%</td>
+<td>$2.00</td>
+<td>$200</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>1.50%</td>
+<td>5%</td>
+<td>20%</td>
+<td>$1.50</td>
+<td>$200</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>1.00%</td>
+<td>5%</td>
+<td>20%</td>
+<td>$1.00</td>
+<td>$200</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="questions" class="level1">
+<h1>Questions</h1>
+<section id="question-1" class="level2">
+<h2 class="anchored" data-anchor-id="question-1">Question 1</h2>
+<section id="prompt" class="level3">
+<h3 class="anchored" data-anchor-id="prompt">Prompt</h3>
+<p>What is the cost per conversion in position 1?</p>
+</section>
+<section id="answer" class="level3">
+<h3 class="anchored" data-anchor-id="answer">Answer</h3>
+<p><span class="math display">\[
+CPC / CvR
+\]</span></p>
+<p><span class="math display">\[
+$2.00 / .05 = $40.00
+\]</span></p>
+</section>
+</section>
+<section id="question-2" class="level2">
+<h2 class="anchored" data-anchor-id="question-2">Question 2</h2>
+<section id="prompt-1" class="level3">
+<h3 class="anchored" data-anchor-id="prompt-1">Prompt</h3>
+<p>What is the cost per conversion in position 2?</p>
+</section>
+<section id="answer-1" class="level3">
+<h3 class="anchored" data-anchor-id="answer-1">Answer</h3>
+<p><span class="math display">\[
+CPC / CvR
+\]</span></p>
+<p><span class="math display">\[
+$1.50 / .05 = $30.00
+\]</span></p>
+</section>
+</section>
+<section id="question-3" class="level2">
+<h2 class="anchored" data-anchor-id="question-3">Question 3</h2>
+<section id="prompt-2" class="level3">
+<h3 class="anchored" data-anchor-id="prompt-2">Prompt</h3>
+<p>What is the cost per conversion in position 3?</p>
+</section>
+<section id="answer-2" class="level3">
+<h3 class="anchored" data-anchor-id="answer-2">Answer</h3>
+<p><span class="math display">\[
+CPC / CvR
+\]</span></p>
+<p><span class="math display">\[
+$1.00 / .05 = $20.00
+\]</span></p>
+</section>
+</section>
+<section id="question-4" class="level2">
+<h2 class="anchored" data-anchor-id="question-4">Question 4</h2>
+<section id="prompt-3" class="level3">
+<h3 class="anchored" data-anchor-id="prompt-3">Prompt</h3>
+<p>If goal is to maximize absolute net profit, then which position you would want to be in?</p>
+</section>
+<section id="answer-3" class="level3">
+<h3 class="anchored" data-anchor-id="answer-3">Answer</h3>
+<p>Position 3 as it has the lowest cost per conversion (<span class="math inline">\(CPC/CvR\)</span>).</p>
+</section>
+</section>
+<section id="question-5" class="level2">
+<h2 class="anchored" data-anchor-id="question-5">Question 5</h2>
+<section id="prompt-4" class="level3">
+<h3 class="anchored" data-anchor-id="prompt-4">Prompt</h3>
+<p>If goal is to maximize overall traffic, then which position you would want to be in?</p>
+</section>
+<section id="answer-4" class="level3">
+<h3 class="anchored" data-anchor-id="answer-4">Answer</h3>
+<p>Position 1 as it has the highest click-through rate.</p>
+</section>
+</section>
+<section id="question-6" class="level2">
+<h2 class="anchored" data-anchor-id="question-6">Question 6</h2>
+<section id="prompt-5" class="level3">
+<h3 class="anchored" data-anchor-id="prompt-5">Prompt</h3>
+<p>Compare that with the most profitable position (from the answer of the previous question) and calculate the % extra cost you would have to pay to sustain this position?</p>
+</section>
+<section id="answer-5" class="level3">
+<h3 class="anchored" data-anchor-id="answer-5">Answer</h3>
+<p>You would need to pay 100% more to get into position 1 for the same amount of clicks in position 3.</p>
+</section>
+</section>
+<section id="question-7" class="level2">
+<h2 class="anchored" data-anchor-id="question-7">Question 7</h2>
+<section id="prompt-6" class="level3">
+<h3 class="anchored" data-anchor-id="prompt-6">Prompt</h3>
+<p>What is return on ad spend (ROAS) of the additional conversions gained by moving from position 3 to position 2?</p>
+</section>
+<section id="answer-6" class="level3">
+<h3 class="anchored" data-anchor-id="answer-6">Answer</h3>
+<p><span class="math display">\[
+Total Revenue / Ad Cost
+\]</span></p>
+<p><span class="math display">\[
+$200 / (1.50 / .05) = 6.67
+\]</span></p>
 
 
+</section>
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -349,10 +501,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./excel.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Excel Basic Functions</span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./sql.html" class="pagination-link">
-        <span class="nav-page-text">SQL and Database</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./scripting.html" class="pagination-link">
+        <span class="nav-page-text">Scripting Test</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
