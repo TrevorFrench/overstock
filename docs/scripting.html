@@ -425,7 +425,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="st">"Delta"</span> <span class="ot">=</span> New <span class="sc">-</span> Existing)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>brand <span class="ot">&lt;-</span> brand <span class="sc">%&gt;%</span> </span>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>brand <span class="ot">&lt;-</span> brand <span class="sc">|&gt;</span> </span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">mycolor =</span> <span class="fu">ifelse</span>(Delta<span class="sc">&gt;</span><span class="dv">0</span>, <span class="st">"type2"</span>, <span class="st">"type1"</span>))</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(brand, <span class="fu">aes</span>(<span class="at">x=</span>Date, <span class="at">y=</span>Delta)) <span class="sc">+</span></span>
@@ -455,7 +455,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>mc <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Marketing_Contribution =</span> Gross_Profit <span class="sc">-</span> Marketing_Spend)</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>mc <span class="ot">&lt;-</span> mc <span class="sc">%&gt;%</span> </span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>mc <span class="ot">&lt;-</span> mc <span class="sc">|&gt;</span> </span>
 <span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">mycolor =</span> <span class="fu">ifelse</span>(Marketing_Contribution<span class="sc">&gt;</span><span class="dv">0</span>, <span class="st">"type2"</span>, <span class="st">"type1"</span>))</span>
 <span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mc, <span class="fu">aes</span>(<span class="at">x=</span>Date, <span class="at">y=</span>Marketing_Contribution)) <span class="sc">+</span></span>
@@ -553,7 +553,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>3588.9758695652176</code></pre>
 </div>
 </div>
-<p>As can be seen above, the total marketing spend is $330,185.80 and the average daily spend is $3,588.98. The bar plot demonstrates that most days see between 200 and 400 existing customers visit the site from an "Unidentified" marketing channel. Additionally, there is one day which is a clear outlier seeing approximately 800 customers.</p>
+<p>As can be seen above, the total marketing spend is $330,185.80 and the average daily spend is $3,588.98. The bar plot demonstrates that most days see between 200 and 400 existing customers visit the site from an “Unidentified” marketing channel. Additionally, there is one day which is a clear outlier seeing approximately 800 customers.</p>
 </section>
 <section id="question-3-1" class="level2">
 <h2 class="anchored" data-anchor-id="question-3-1">Question 3</h2>
@@ -573,7 +573,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="scripting_files/figure-html/unnamed-chunk-13-3.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>The previous visualization demonstrates that the "brand" channel may drive more existing customers than new customers.</p>
+<p>The previous visualization demonstrates that the “brand” channel may drive more existing customers than new customers.</p>
 </section>
 <section id="question-4-1" class="level2">
 <h2 class="anchored" data-anchor-id="question-4-1">Question 4</h2>

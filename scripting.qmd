@@ -69,7 +69,7 @@ brand <- brand |>
 ```{r}
 #| warning: false
 
-brand <- brand %>% 
+brand <- brand |> 
   mutate(mycolor = ifelse(Delta>0, "type2", "type1"))
 
 ggplot(brand, aes(x=Date, y=Delta)) +
@@ -99,7 +99,7 @@ Please calculate 'Marketing_Contribution' using formula: Marketing_Contribution 
 mc <- df |>
   mutate(Marketing_Contribution = Gross_Profit - Marketing_Spend)
 
-mc <- mc %>% 
+mc <- mc |> 
   mutate(mycolor = ifelse(Marketing_Contribution>0, "type2", "type1"))
 
 ggplot(mc, aes(x=Date, y=Marketing_Contribution)) +
@@ -169,7 +169,7 @@ unidentified["Marketing_Spend"].sum()
 unidentified["Marketing_Spend"].mean()
 ```
 
-As can be seen above, the total marketing spend is \$330,185.80 and the average daily spend is \$3,588.98. The bar plot demonstrates that most days see between 200 and 400 existing customers visit the site from an \"Unidentified\" marketing channel. Additionally, there is one day which is a clear outlier seeing approximately 800 customers.
+As can be seen above, the total marketing spend is \$330,185.80 and the average daily spend is \$3,588.98. The bar plot demonstrates that most days see between 200 and 400 existing customers visit the site from an "Unidentified" marketing channel. Additionally, there is one day which is a clear outlier seeing approximately 800 customers.
 
 ## Question 3
 
@@ -190,7 +190,7 @@ plt.bar(y_pos, brand.Delta)
 plt.show()
 ```
 
-The previous visualization demonstrates that the \"brand\" channel may drive more existing customers than new customers.
+The previous visualization demonstrates that the "brand" channel may drive more existing customers than new customers.
 
 ## Question 4
 
