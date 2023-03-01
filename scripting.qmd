@@ -29,15 +29,21 @@ Within this 90-day data set, we observe traffic from an "Unidentified"marketing 
 
 ```{r}
 #| output: false
+library(ggplot2)
 library(dplyr)
+
 unidentified <- filter(df, Customer_Type == "EXISTING" & Channel == "Unidentified")
-barplot(unidentified$Customer_Count, main="Customer Count by Day")
 ```
 
 ```{r}
+
+barplot(unidentified$Customer_Count, main="Customer Count by Day", border="#545658", col="#ED0000")
+
 sum(unidentified$Marketing_Spend)
 mean(unidentified$Marketing_Spend)
 ```
+
+As can be seen above, the total marketing spend is \$330,185.80 and the average daily spend is \$3,588.98.
 
 ## Question 3
 
@@ -58,7 +64,9 @@ brand <- brand |> summarise(
 brand[is.na(brand)] <- 0
 brand <- brand |>
   mutate("Delta" = New - Existing)
+```
 
+```{r}
 barplot(brand$Delta, main="New vs. Existing Customers")
 ```
 
@@ -111,16 +119,16 @@ df.head(10)
 Within this 90-day data set, we observe traffic from an "Unidentified"marketing channel coming to the site. We would like to identify the number of "existing" customers by day from this channel. ("Existing" customers are defined as those who have made a purchase in the past) Please demonstrate this result in a visualization. Are there any insights that you could derive from the visualization? What is the total spend amount and daily average spend on these existing customers?
 
 ```{python}
+#| output: false
 import numpy as np
 import matplotlib.pyplot as plt
 unidentified = df[(df.Customer_Type == "EXISTING") & (df.Channel == "Unidentified")]
 y_pos = np.arange(len(unidentified.Date))
 plt.bar(y_pos, unidentified.Customer_Count)
-# plt.xticks(y_pos, unidentified.Date)
-plt.show()
 ```
 
 ```{python}
+plt.show()
 unidentified["Marketing_Spend"].sum()
 unidentified["Marketing_Spend"].mean()
 ```
@@ -130,12 +138,18 @@ unidentified["Marketing_Spend"].mean()
 We believe that the Brand channel drives more New Customers than Existing Customers. We would like to verify this statement using the data provided. Please provide the daily difference between Brand channel's New Customers and Existing Customers using a visualization. Are there any insights from the visualization?
 
 ```{python}
+#| output: false
 brand = df[df.Channel == "Brand"]
 brand["New"] = brand.apply(lambda x: x["Customer_Count"] if x["Customer_Type"] == "NEW" else 0, axis=1)
 brand["Existing"] = brand.apply(lambda x: x["Customer_Count"] if x["Customer_Type"] == "EXISTING" else 0, axis=1)
 brand = brand.groupby("Date")[["New", "Existing"]].agg(["sum"])
 brand["Delta"] = brand["New"] - brand["Existing"]
-print(brand)
+y_pos = np.arange(len(brand.index))
+plt.bar(y_pos, brand.Delta)
+```
+
+```{python}
+plt.show()
 ```
 
 ## Question 4
@@ -143,9 +157,15 @@ print(brand)
 Please calculate 'Marketing_Contribution' using formula: Marketing_Contribution = Gross_Profit - Marketing_Spend. Make a plot of the daily Marketing_Contribution at the aggregated level (for all channels and customer types together)
 
 ```{python}
+#| output: false
 mc = df
 mc["Marketing_Contribution"] = mc["Gross_Profit"] - mc["Marketing_Spend"]
-print(mc)
+y_pos = np.arange(len(mc.Date))
+plt.bar(y_pos, mc.Marketing_Contribution)
+```
+
+```{python}
+plt.show()
 ```
 
 ## Question 5
@@ -153,10 +173,14 @@ print(mc)
 Find correlation between Paid Search Revenue and Organic Search Revenue - as a calculation as well as a plot.
 
 ```{python}
+#| output: false
 search = df[(df.Channel == "Paid Search") | (df.Channel == "Organic Search")]
 search["Paid"] = search.apply(lambda x: x["Revenue"] if x["Channel"] == "Paid Search" else 0, axis=1)
 search["Organic"] = search.apply(lambda x: x["Revenue"] if x["Channel"] == "Organic Search" else 0, axis=1)
 search = search.groupby("Date")[["Paid", "Organic"]].agg(["sum"])
+```
+
+```{python}
 search.corr()
 plt.scatter(search.Paid, search.Organic)
 plt.show()
