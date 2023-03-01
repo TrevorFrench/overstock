@@ -144,7 +144,7 @@
     "href": "scripting.html#question-4",
     "title": "Scripting Test",
     "section": "Question 4",
-    "text": "Question 4\nPlease calculate ‘Marketing_Contribution’ using formula: Marketing_Contribution = Gross_Profit - Marketing_Spend. Make a plot of the daily Marketing_Contribution at the aggregated level (for all channels and customer types together)\n\nmc <- df |>\n  mutate(Marketing_Contribution = Gross_Profit - Marketing_Spend)\n\nmc <- mc |> \n  mutate(mycolor = ifelse(Marketing_Contribution>0, \"type2\", \"type1\"))\n\nggplot(mc, aes(x=Date, y=Marketing_Contribution)) +\n  geom_segment(aes(x=Date, xend=Date, y=0, yend=Marketing_Contribution, color=mycolor), size=1.3, alpha=0.9) +\n  theme_light() +\n  theme(\n    legend.position = \"none\",\n    panel.border = element_blank(),\n    plot.title = element_text(size = 14),\n    panel.grid = element_blank(),\n    axis.text.x=element_blank(),\n    axis.ticks.x=element_blank(),\n    axis.title.x = element_blank(),\n    axis.title.y = element_blank()\n  ) +\n  ggtitle(\"Marketing Contribution\")"
+    "text": "Question 4\nPlease calculate ‘Marketing_Contribution’ using formula: Marketing_Contribution = Gross_Profit - Marketing_Spend. Make a plot of the daily Marketing_Contribution at the aggregated level (for all channels and customer types together)\n\nmc <- df |>\n  mutate(Marketing_Contribution = Gross_Profit - Marketing_Spend)\n\nmc <- mc |> group_by(Date)\nmc <- mc |> summarise(\n    Marketing_Contribution = sum(Marketing_Contribution)\n)\nprint(mc)\n\n# A tibble: 90 × 2\n   Date      Marketing_Contribution\n   <chr>                      <dbl>\n 1 1/1/2017                 186891.\n 2 1/10/2017                    NA \n 3 1/11/2017                175309.\n 4 1/12/2017                    NA \n 5 1/13/2017                    NA \n 6 1/14/2017                    NA \n 7 1/15/2017                236828.\n 8 1/16/2017                244637.\n 9 1/17/2017                    NA \n10 1/18/2017                    NA \n# … with 80 more rows\n\nbarplot(mc$Marketing_Contribution, main=\"Marketing Contribution by Day\", border=\"#545658\", col=\"#ED0000\")"
   },
   {
     "objectID": "scripting.html#question-5",
@@ -179,7 +179,7 @@
     "href": "scripting.html#question-4-1",
     "title": "Scripting Test",
     "section": "Question 4",
-    "text": "Question 4\nPlease calculate ‘Marketing_Contribution’ using formula: Marketing_Contribution = Gross_Profit - Marketing_Spend. Make a plot of the daily Marketing_Contribution at the aggregated level (for all channels and customer types together)\n\nmc = df\nmc[\"Marketing_Contribution\"] = mc[\"Gross_Profit\"] - mc[\"Marketing_Spend\"]\ny_pos = np.arange(len(mc.Date))\nplt.bar(y_pos, mc.Marketing_Contribution)\n\n\nplt.show()"
+    "text": "Question 4\nPlease calculate ‘Marketing_Contribution’ using formula: Marketing_Contribution = Gross_Profit - Marketing_Spend. Make a plot of the daily Marketing_Contribution at the aggregated level (for all channels and customer types together)\n\nmc = df\nmc[\"Marketing_Contribution\"] = mc[\"Gross_Profit\"] - mc[\"Marketing_Spend\"]\nmc_grouped = mc.groupby(\"Date\")[\"Marketing_Contribution\"].sum()\ny_pos = np.arange(len(mc_grouped.index))\nplt.bar(y_pos, mc_grouped)\n\n\nplt.show()"
   },
   {
     "objectID": "scripting.html#question-5-1",
