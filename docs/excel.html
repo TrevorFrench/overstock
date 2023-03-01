@@ -184,6 +184,7 @@ ul.task-list li input[type="checkbox"] {
 <h1>Basic Functions I</h1>
 <section id="instructions" class="level2">
 <h2 class="anchored" data-anchor-id="instructions">Instructions</h2>
+<p>Using Excel’s built in functionality, split the values in column D into first and last names. Please show your work (i.e., show your formulas).</p>
 <div class="cell">
 <div class="cell-output-display">
 <p><img src="images/bf1-instructions.png" class="img-fluid" style="background-color: #545658; padding:10px; display: block; margin-left: auto; margin-right: auto; width: 80%;" width="500"></p>
@@ -192,16 +193,19 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="answer" class="level2">
 <h2 class="anchored" data-anchor-id="answer">Answer</h2>
+<p>We can split the values in column D by locating the index of the comma with the “FIND” function, the length of the string with the “LEN” function, and then applying the “LEFT” and “RIGHT” functions as is demonstrated in the following image.</p>
 <div class="cell">
 <div class="cell-output-display">
 <p><img src="images/bf1-answer1.png" class="img-fluid" style="background-color: #545658; padding:10px; display: block; margin-left: auto; margin-right: auto; width: 80%;" width="500"></p>
 </div>
 </div>
+<p>These functions can then be combined into just two cells as follows.</p>
 <div class="cell">
 <div class="cell-output-display">
 <p><img src="images/bf1-answer2.png" class="img-fluid" style="background-color: #545658; padding:10px; display: block; margin-left: auto; margin-right: auto; width: 80%;" width="500"></p>
 </div>
 </div>
+<p>The final result looks like the following image.</p>
 <div class="cell">
 <div class="cell-output-display">
 <p><img src="images/bf1-answer3.png" class="img-fluid" style="background-color: #545658; padding:10px; display: block; margin-left: auto; margin-right: auto; width: 80%;" width="500"></p>
@@ -213,6 +217,9 @@ ul.task-list li input[type="checkbox"] {
 <h1>Basic Functions II</h1>
 <section id="instructions-1" class="level2">
 <h2 class="anchored" data-anchor-id="instructions-1">Instructions</h2>
+<p><strong>Step 1:</strong> Using a formula in cell G5, count how many associates have quality greater than 90% and pieces per hour greater than 45.</p>
+<p><strong>Step 2:</strong> Using a formula in cell G9, what is the average quality and pieces per hour for the associates on Jason’s team?</p>
+<p><strong>Step 3:</strong> Using a formula in cell G13, what is the average pieces per hour for associates with quality lower than 89%?</p>
 <div class="cell">
 <div class="cell-output-display">
 <p><img src="images/bf2-instructions.png" class="img-fluid" style="background-color: #545658; padding:10px; display: block; margin-left: auto; margin-right: auto; width: 80%;" width="500"></p>
@@ -221,11 +228,19 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="answers" class="level2">
 <h2 class="anchored" data-anchor-id="answers">Answers</h2>
+<p><strong>Step 1:</strong> =COUNTIFS(C:C,“&gt;”&amp;0.9,D:D,“&gt;”&amp;45)</p>
+<p><strong>Step 2a:</strong> =AVERAGEIF(B:B,“=”&amp;“Jason”,C:C)</p>
+<p><strong>Step 2b:</strong> =AVERAGEIF(B:B,“=”&amp;“Jason”,D:D)</p>
+<p><strong>Step 3:</strong> =AVERAGEIF(C:C,“&lt;”&amp;0.89,D:D)</p>
 <div class="cell">
 <div class="cell-output-display">
 <p><img src="images/bf2-answer1.png" class="img-fluid" style="background-color: #545658; padding:10px; display: block; margin-left: auto; margin-right: auto; width: 80%;" width="500"></p>
 </div>
 </div>
+<p><strong>Step 1:</strong> 3</p>
+<p><strong>Step 2a:</strong> 89%</p>
+<p><strong>Step 2b:</strong> 42.31</p>
+<p><strong>Step 3:</strong> 43.21</p>
 <div class="cell">
 <div class="cell-output-display">
 <p><img src="images/bf2-answer2.png" class="img-fluid" style="background-color: #545658; padding:10px; display: block; margin-left: auto; margin-right: auto; width: 80%;" width="500"></p>
