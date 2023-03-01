@@ -84,7 +84,7 @@ If goal is to maximize absolute net profit, then which position you would want t
 
 ### Answer
 
-Position 3 as it has the lowest cost per conversion ($CPC/CvR$)
+Position 3 as it has the lowest cost per conversion ($CPC/CvR$).
 
 ## Question 5
 

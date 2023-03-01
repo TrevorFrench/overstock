@@ -12,14 +12,27 @@ website:
     align: center
     tools:
       - icon: github
-        href: https://github.com/TrevorFrench/overstock
         text: "GitHub"
+        menu:
+          - text: Repository
+            url: https://github.com/TrevorFrench/overstock
+          - text: Profile
+            url: https://github.com/TrevorFrench
       - icon: person-fill
         href: https://trevorfrench.com
         text: "Portfolio"
       - icon: linkedin
         href: https://www.linkedin.com/in/frenchtrevor/
-        text: "Portfolio"
+        text: "LinkedIn"
+      - icon: twitter
+        href: https://twitter.com/TrvrFrnch
+        text: "Twitter"
+      - icon: youtube
+        href: https://www.youtube.com/@TrevorFrench
+        text: "Youtube"
+      - icon: medium
+        href: https://medium.com/@FrenchTrevor
+        text: "Medium"
     style: "docked"
     contents:
       - href: index.qmd

@@ -25,9 +25,11 @@ kableExtra::kbl(df) |>
 
 ## Question 1
 
+### Prompt
+
 Show me sale revenue (top line & bottom line) by Marketing channel for the past 90 days trended by day.
 
-## Answer 1
+### Answer
 
 ```{r}
 #| echo: false
@@ -58,6 +60,8 @@ copy_to(dest = con,
 
 # dbListTables(con)
 ```
+
+The following query sums top-line revenue along with bottom line revenue and groups it day and channel for 90 days from the date the query is executed. There are also two additional columns which show the day-over-day trend for each day and channel.
 
 ```{sql max.print = 10}
 #| connection: con
@@ -95,9 +99,13 @@ FROM sales_data;
 
 ## Question 2
 
+### Prompt
+
 Show me the number of visits, visitors and bounce rate for each Marketing Channel for the past 90 days trended by day. (Hint: Bounce rate = Single page view visits / total visits)
 
-## Answer 2
+### Answer
+
+The following query counts distinct visits and visitors along with the bounce rate and groups it day and channel for 90 days from the date the query is executed.
 
 ```{sql max.print = 20}
 #| connection: con
@@ -105,32 +113,12 @@ with visits_data AS (
   SELECT VISIT_DT AS "DAY"
     , CHANNEL_DESCRIPTION AS "CHANNEL"
     , COUNT(DISTINCT VISIT_ID) AS "VISITS"
-    , LEAD(COUNT(DISTINCT VISIT_ID), 1) 
-      OVER(
-        PARTITION BY CHANNEL_DESCRIPTION 
-        ORDER BY VISIT_DT DESC
-      ) AS "VISITS_LAG"
     , COUNT(DISTINCT VISITOR_ID) AS "VISITORS"
-    , LEAD(COUNT(DISTINCT VISITOR_ID), 1) 
-      OVER(
-        PARTITION BY CHANNEL_DESCRIPTION 
-        ORDER BY VISIT_DT DESC
-      ) AS "VISITORS_LAG"
     , SUM(
       CASE
         WHEN PAGE_VIEW_COUNT = 1 THEN 1
         ELSE 0
       END) AS "BOUNCES"
-    , LEAD(
-      SUM(
-        CASE
-          WHEN PAGE_VIEW_COUNT = 1 THEN 1
-          ELSE 0
-        END), 1) 
-      OVER(
-        PARTITION BY CHANNEL_DESCRIPTION
-        ORDER BY VISIT_DT DESC
-      ) AS "BOUNCE_LAG"
   FROM BI_VISIT
   LEFT JOIN BI_CAMPAIGN_DESCRIPTION
   ON FIRST_PAGE_VIEW_CAMPAIGN_ID = CAMPAIGN_ID
@@ -142,19 +130,20 @@ with visits_data AS (
 SELECT DAY
   , CHANNEL
   , VISITS
-  , (VISITS - VISITS_LAG) / VISITS_LAG * 100 AS "% DAILY VISITS TREND"
   , VISITORS
-  , (VISITORS - VISITORS_LAG) / VISITORS_LAG * 100 AS "% DAILY VISITORS TREND"
   , BOUNCES / VISITS AS "BOUNCE RATE"
-  , ((BOUNCES / VISITS) - (BOUNCE_LAG / VISITS_LAG)) / (BOUNCE_LAG / VISITS_LAG) AS "% DAILY BOUNCE RATE TREND"
 FROM visits_data
 ```
 
 ## Question 3
 
+### Prompt
+
 Show me the number of visits each Marketing channel acquired and the revenue (top line & Bottom line) for each last clicked Marketing channel for the past 90 days trended by day. Calculate conversion rate (orders/visits). Answer in one query.
 
-## Answer 3
+### Answer
+
+The following query counts the number of distinct visits, sums the top-line and bottom-line revenue, and calculates the conversion rate for each day and channel.
 
 ```{sql max.print = 10}
 #| connection: con
@@ -167,6 +156,7 @@ SELECT SALES_TRANSACTION_DATE AS "DAY"
 FROM BI_VISIT
 LEFT JOIN BI_SALES ON BI_VISIT.VISIT_ID = BI_SALES.VISIT_ID
 LEFT JOIN BI_CAMPAIGN_DESCRIPTION ON SALES_TRANSACTION_CAMPAIGN_ID = CAMPAIGN_ID
-WHERE VISIT_DT >= DATETIME('now', '-90 day')
+WHERE SALES_TRANSACTION_DATE >= DATETIME('now', '-90 day')
 GROUP BY SALES_TRANSACTION_DATE, CHANNEL_DESCRIPTION
+ORDER BY SALES_TRANSACTION_DATE DESC
 ```

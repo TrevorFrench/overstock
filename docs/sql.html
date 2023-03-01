@@ -152,9 +152,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <img src="./images/logo.svg" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
       </a>
       <div class="sidebar-tools-main tools-wide">
-    <a href="https://github.com/TrevorFrench/overstock" title="GitHub" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
+    <a href="" title="GitHub" id="sidebar-tool-dropdown-0" class="sidebar-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-github"></i></a>
+    <ul class="dropdown-menu" aria-labelledby="sidebar-tool-dropdown-0">
+        <li>
+          <a class="dropdown-item sidebar-tools-main-item" href="https://github.com/TrevorFrench/overstock">
+          Repository
+          </a>
+        </li>
+        <li>
+          <a class="dropdown-item sidebar-tools-main-item" href="https://github.com/TrevorFrench">
+          Profile
+          </a>
+        </li>
+    </ul>
     <a href="https://trevorfrench.com" title="Portfolio" class="sidebar-tool px-1"><i class="bi bi-person-fill"></i></a>
-    <a href="https://www.linkedin.com/in/frenchtrevor/" title="Portfolio" class="sidebar-tool px-1"><i class="bi bi-linkedin"></i></a>
+    <a href="https://www.linkedin.com/in/frenchtrevor/" title="LinkedIn" class="sidebar-tool px-1"><i class="bi bi-linkedin"></i></a>
+    <a href="https://twitter.com/TrvrFrnch" title="Twitter" class="sidebar-tool px-1"><i class="bi bi-twitter"></i></a>
+    <a href="https://www.youtube.com/@TrevorFrench" title="Youtube" class="sidebar-tool px-1"><i class="bi bi-youtube"></i></a>
+    <a href="https://medium.com/@FrenchTrevor" title="Medium" class="sidebar-tool px-1"><i class="bi bi-medium"></i></a>
 </div>
       </div>
       <div class="mt-2 flex-shrink-0 align-items-center">
@@ -204,12 +219,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </ul></li>
   <li><a href="#questions" id="toc-questions" class="nav-link" data-scroll-target="#questions">Questions</a>
   <ul class="collapse">
-  <li><a href="#question-1" id="toc-question-1" class="nav-link" data-scroll-target="#question-1">Question 1</a></li>
-  <li><a href="#answer-1" id="toc-answer-1" class="nav-link" data-scroll-target="#answer-1">Answer 1</a></li>
-  <li><a href="#question-2" id="toc-question-2" class="nav-link" data-scroll-target="#question-2">Question 2</a></li>
-  <li><a href="#answer-2" id="toc-answer-2" class="nav-link" data-scroll-target="#answer-2">Answer 2</a></li>
-  <li><a href="#question-3" id="toc-question-3" class="nav-link" data-scroll-target="#question-3">Question 3</a></li>
-  <li><a href="#answer-3" id="toc-answer-3" class="nav-link" data-scroll-target="#answer-3">Answer 3</a></li>
+  <li><a href="#question-1" id="toc-question-1" class="nav-link" data-scroll-target="#question-1">Question 1</a>
+  <ul class="collapse">
+  <li><a href="#prompt" id="toc-prompt" class="nav-link" data-scroll-target="#prompt">Prompt</a></li>
+  <li><a href="#answer" id="toc-answer" class="nav-link" data-scroll-target="#answer">Answer</a></li>
+  </ul></li>
+  <li><a href="#question-2" id="toc-question-2" class="nav-link" data-scroll-target="#question-2">Question 2</a>
+  <ul class="collapse">
+  <li><a href="#prompt-1" id="toc-prompt-1" class="nav-link" data-scroll-target="#prompt-1">Prompt</a></li>
+  <li><a href="#answer-1" id="toc-answer-1" class="nav-link" data-scroll-target="#answer-1">Answer</a></li>
+  </ul></li>
+  <li><a href="#question-3" id="toc-question-3" class="nav-link" data-scroll-target="#question-3">Question 3</a>
+  <ul class="collapse">
+  <li><a href="#prompt-2" id="toc-prompt-2" class="nav-link" data-scroll-target="#prompt-2">Prompt</a></li>
+  <li><a href="#answer-2" id="toc-answer-2" class="nav-link" data-scroll-target="#answer-2">Answer</a></li>
+  </ul></li>
   </ul></li>
   </ul>
 </nav>
@@ -385,13 +409,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1>Questions</h1>
 <section id="question-1" class="level2">
 <h2 class="anchored" data-anchor-id="question-1">Question 1</h2>
+<section id="prompt" class="level3">
+<h3 class="anchored" data-anchor-id="prompt">Prompt</h3>
 <p>Show me sale revenue (top line &amp; bottom line) by Marketing channel for the past 90 days trended by day.</p>
 </section>
-<section id="answer-1" class="level2">
-<h2 class="anchored" data-anchor-id="answer-1">Answer 1</h2>
+<section id="answer" class="level3">
+<h3 class="anchored" data-anchor-id="answer">Answer</h3>
 <div class="cell">
 
 </div>
+<p>The following query sums top-line revenue along with bottom line revenue and groups it day and channel for 90 days from the date the query is executed. There are also two additional columns which show the day-over-day trend for each day and channel.</p>
 <div class="cell" data-max.print="10">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">WITH</span> sales_data <span class="kw">AS</span> (</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">SELECT</span> SALES_TRANSACTION_DATE <span class="kw">AS</span> <span class="ot">"DAY"</span></span>
@@ -658,60 +685,41 @@ Channel 2
 </div>
 </div>
 </section>
+</section>
 <section id="question-2" class="level2">
 <h2 class="anchored" data-anchor-id="question-2">Question 2</h2>
+<section id="prompt-1" class="level3">
+<h3 class="anchored" data-anchor-id="prompt-1">Prompt</h3>
 <p>Show me the number of visits, visitors and bounce rate for each Marketing Channel for the past 90 days trended by day. (Hint: Bounce rate = Single page view visits / total visits)</p>
 </section>
-<section id="answer-2" class="level2">
-<h2 class="anchored" data-anchor-id="answer-2">Answer 2</h2>
+<section id="answer-1" class="level3">
+<h3 class="anchored" data-anchor-id="answer-1">Answer</h3>
+<p>The following query counts distinct visits and visitors along with the bounce rate and groups it day and channel for 90 days from the date the query is executed.</p>
 <div class="cell" data-max.print="20">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">with</span> visits_data <span class="kw">AS</span> (</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">SELECT</span> VISIT_DT <span class="kw">AS</span> <span class="ot">"DAY"</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    , CHANNEL_DESCRIPTION <span class="kw">AS</span> <span class="ot">"CHANNEL"</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    , <span class="fu">COUNT</span>(<span class="kw">DISTINCT</span> VISIT_ID) <span class="kw">AS</span> <span class="ot">"VISITS"</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    , <span class="fu">LEAD</span>(<span class="fu">COUNT</span>(<span class="kw">DISTINCT</span> VISIT_ID), <span class="dv">1</span>) </span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>      <span class="kw">OVER</span>(</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>        <span class="kw">PARTITION</span> <span class="kw">BY</span> CHANNEL_DESCRIPTION </span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>        <span class="kw">ORDER</span> <span class="kw">BY</span> VISIT_DT <span class="kw">DESC</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>      ) <span class="kw">AS</span> <span class="ot">"VISITS_LAG"</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    , <span class="fu">COUNT</span>(<span class="kw">DISTINCT</span> VISITOR_ID) <span class="kw">AS</span> <span class="ot">"VISITORS"</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    , <span class="fu">LEAD</span>(<span class="fu">COUNT</span>(<span class="kw">DISTINCT</span> VISITOR_ID), <span class="dv">1</span>) </span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>      <span class="kw">OVER</span>(</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>        <span class="kw">PARTITION</span> <span class="kw">BY</span> CHANNEL_DESCRIPTION </span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>        <span class="kw">ORDER</span> <span class="kw">BY</span> VISIT_DT <span class="kw">DESC</span></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>      ) <span class="kw">AS</span> <span class="ot">"VISITORS_LAG"</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    , <span class="fu">SUM</span>(</span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>      <span class="cf">CASE</span></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>        <span class="cf">WHEN</span> PAGE_VIEW_COUNT <span class="op">=</span> <span class="dv">1</span> <span class="cf">THEN</span> <span class="dv">1</span></span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>        <span class="cf">ELSE</span> <span class="dv">0</span></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>      <span class="cf">END</span>) <span class="kw">AS</span> <span class="ot">"BOUNCES"</span></span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>    , <span class="fu">LEAD</span>(</span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>      <span class="fu">SUM</span>(</span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>        <span class="cf">CASE</span></span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>          <span class="cf">WHEN</span> PAGE_VIEW_COUNT <span class="op">=</span> <span class="dv">1</span> <span class="cf">THEN</span> <span class="dv">1</span></span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>          <span class="cf">ELSE</span> <span class="dv">0</span></span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>        <span class="cf">END</span>), <span class="dv">1</span>) </span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>      <span class="kw">OVER</span>(</span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>        <span class="kw">PARTITION</span> <span class="kw">BY</span> CHANNEL_DESCRIPTION</span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>        <span class="kw">ORDER</span> <span class="kw">BY</span> VISIT_DT <span class="kw">DESC</span></span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>      ) <span class="kw">AS</span> <span class="ot">"BOUNCE_LAG"</span></span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>  <span class="kw">FROM</span> BI_VISIT</span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>  <span class="kw">LEFT</span> <span class="kw">JOIN</span> BI_CAMPAIGN_DESCRIPTION</span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>  <span class="kw">ON</span> FIRST_PAGE_VIEW_CAMPAIGN_ID <span class="op">=</span> CAMPAIGN_ID</span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>  <span class="kw">WHERE</span> VISIT_DT <span class="op">&gt;=</span> DATETIME(<span class="st">'now'</span>, <span class="st">'-90 day'</span>)</span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>  <span class="kw">GROUP</span> <span class="kw">BY</span> VISIT_DT, CHANNEL_DESCRIPTION</span>
-<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>  <span class="kw">ORDER</span> <span class="kw">BY</span> VISIT_DT <span class="kw">DESC</span></span>
-<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="dt">DAY</span></span>
-<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>  , CHANNEL</span>
-<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>  , VISITS</span>
-<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>  , (VISITS <span class="op">-</span> VISITS_LAG) <span class="op">/</span> VISITS_LAG <span class="op">*</span> <span class="dv">100</span> <span class="kw">AS</span> <span class="ot">"% DAILY VISITS TREND"</span></span>
-<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>  , VISITORS</span>
-<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>  , (VISITORS <span class="op">-</span> VISITORS_LAG) <span class="op">/</span> VISITORS_LAG <span class="op">*</span> <span class="dv">100</span> <span class="kw">AS</span> <span class="ot">"% DAILY VISITORS TREND"</span></span>
-<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>  , BOUNCES <span class="op">/</span> VISITS <span class="kw">AS</span> <span class="ot">"BOUNCE RATE"</span></span>
-<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>  , ((BOUNCES <span class="op">/</span> VISITS) <span class="op">-</span> (BOUNCE_LAG <span class="op">/</span> VISITS_LAG)) <span class="op">/</span> (BOUNCE_LAG <span class="op">/</span> VISITS_LAG) <span class="kw">AS</span> <span class="ot">"% DAILY BOUNCE RATE TREND"</span></span>
-<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> visits_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    , <span class="fu">COUNT</span>(<span class="kw">DISTINCT</span> VISITOR_ID) <span class="kw">AS</span> <span class="ot">"VISITORS"</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    , <span class="fu">SUM</span>(</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>      <span class="cf">CASE</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">WHEN</span> PAGE_VIEW_COUNT <span class="op">=</span> <span class="dv">1</span> <span class="cf">THEN</span> <span class="dv">1</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">ELSE</span> <span class="dv">0</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>      <span class="cf">END</span>) <span class="kw">AS</span> <span class="ot">"BOUNCES"</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="kw">FROM</span> BI_VISIT</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="kw">LEFT</span> <span class="kw">JOIN</span> BI_CAMPAIGN_DESCRIPTION</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="kw">ON</span> FIRST_PAGE_VIEW_CAMPAIGN_ID <span class="op">=</span> CAMPAIGN_ID</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  <span class="kw">WHERE</span> VISIT_DT <span class="op">&gt;=</span> DATETIME(<span class="st">'now'</span>, <span class="st">'-90 day'</span>)</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  <span class="kw">GROUP</span> <span class="kw">BY</span> VISIT_DT, CHANNEL_DESCRIPTION</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>  <span class="kw">ORDER</span> <span class="kw">BY</span> VISIT_DT <span class="kw">DESC</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="dt">DAY</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>  , CHANNEL</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>  , VISITS</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>  , VISITORS</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>  , BOUNCES <span class="op">/</span> VISITS <span class="kw">AS</span> <span class="ot">"BOUNCE RATE"</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> visits_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="knitsql-table">
 
 <table>
@@ -730,19 +738,10 @@ CHANNEL
 VISITS
 </th>
 <th style="text-align:right;">
-% DAILY VISITS TREND
-</th>
-<th style="text-align:right;">
 VISITORS
 </th>
 <th style="text-align:right;">
-% DAILY VISITORS TREND
-</th>
-<th style="text-align:right;">
 BOUNCE RATE
-</th>
-<th style="text-align:right;">
-% DAILY BOUNCE RATE TREND
 </th>
 </tr>
 </thead>
@@ -758,19 +757,10 @@ Channel 1
 1
 </td>
 <td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
 1
 </td>
 <td style="text-align:right;">
 0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-NA
 </td>
 </tr>
 <tr>
@@ -784,19 +774,10 @@ Channel 2
 2
 </td>
 <td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
 2
 </td>
 <td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
 1
-</td>
-<td style="text-align:right;">
-NA
 </td>
 </tr>
 <tr>
@@ -810,19 +791,10 @@ Channel 2
 3
 </td>
 <td style="text-align:right;">
-200
-</td>
-<td style="text-align:right;">
 2
 </td>
 <td style="text-align:right;">
-100
-</td>
-<td style="text-align:right;">
 0
-</td>
-<td style="text-align:right;">
--1
 </td>
 </tr>
 <tr>
@@ -836,19 +808,10 @@ Channel 1
 3
 </td>
 <td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
 2
 </td>
 <td style="text-align:right;">
 0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
--1
 </td>
 </tr>
 <tr>
@@ -862,19 +825,10 @@ Channel 2
 1
 </td>
 <td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
 1
 </td>
 <td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
 1
-</td>
-<td style="text-align:right;">
-NA
 </td>
 </tr>
 <tr>
@@ -888,19 +842,10 @@ Channel 1
 2
 </td>
 <td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
 2
 </td>
 <td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
 1
-</td>
-<td style="text-align:right;">
-NA
 </td>
 </tr>
 <tr>
@@ -914,19 +859,10 @@ Channel 2
 2
 </td>
 <td style="text-align:right;">
-100
-</td>
-<td style="text-align:right;">
 2
 </td>
 <td style="text-align:right;">
-100
-</td>
-<td style="text-align:right;">
 0
-</td>
-<td style="text-align:right;">
--1
 </td>
 </tr>
 <tr>
@@ -940,19 +876,10 @@ Channel 1
 3
 </td>
 <td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
 3
 </td>
 <td style="text-align:right;">
 0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-NA
 </td>
 </tr>
 <tr>
@@ -966,19 +893,10 @@ Channel 1
 2
 </td>
 <td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
 2
 </td>
 <td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
 0
-</td>
-<td style="text-align:right;">
-NA
 </td>
 </tr>
 <tr>
@@ -992,19 +910,10 @@ Channel 2
 1
 </td>
 <td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
 1
 </td>
 <td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
 1
-</td>
-<td style="text-align:right;">
-NA
 </td>
 </tr>
 </tbody>
@@ -1013,12 +922,15 @@ NA
 </div>
 </div>
 </section>
+</section>
 <section id="question-3" class="level2">
 <h2 class="anchored" data-anchor-id="question-3">Question 3</h2>
+<section id="prompt-2" class="level3">
+<h3 class="anchored" data-anchor-id="prompt-2">Prompt</h3>
 <p>Show me the number of visits each Marketing channel acquired and the revenue (top line &amp; Bottom line) for each last clicked Marketing channel for the past 90 days trended by day. Calculate conversion rate (orders/visits). Answer in one query.</p>
 </section>
-<section id="answer-3" class="level2">
-<h2 class="anchored" data-anchor-id="answer-3">Answer 3</h2>
+<section id="answer-2" class="level3">
+<h3 class="anchored" data-anchor-id="answer-2">Answer</h3>
 <div class="cell" data-max.print="10">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> SALES_TRANSACTION_DATE <span class="kw">AS</span> <span class="ot">"DAY"</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  , CHANNEL_DESCRIPTION <span class="kw">AS</span> <span class="ot">"CHANNEL"</span></span>
@@ -1029,8 +941,9 @@ NA
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> BI_VISIT</span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="kw">LEFT</span> <span class="kw">JOIN</span> BI_SALES <span class="kw">ON</span> BI_VISIT.VISIT_ID <span class="op">=</span> BI_SALES.VISIT_ID</span>
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="kw">LEFT</span> <span class="kw">JOIN</span> BI_CAMPAIGN_DESCRIPTION <span class="kw">ON</span> SALES_TRANSACTION_CAMPAIGN_ID <span class="op">=</span> CAMPAIGN_ID</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> VISIT_DT <span class="op">&gt;=</span> DATETIME(<span class="st">'now'</span>, <span class="st">'-90 day'</span>)</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span> SALES_TRANSACTION_DATE, CHANNEL_DESCRIPTION</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> SALES_TRANSACTION_DATE <span class="op">&gt;=</span> DATETIME(<span class="st">'now'</span>, <span class="st">'-90 day'</span>)</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span> SALES_TRANSACTION_DATE, CHANNEL_DESCRIPTION</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">BY</span> SALES_TRANSACTION_DATE <span class="kw">DESC</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="knitsql-table">
 
 <table>
@@ -1062,59 +975,19 @@ CONVERSION RATE
 <tbody>
 <tr>
 <td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:right;">
-10
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-2022-08-27
+2023-02-24
 </td>
 <td style="text-align:left;">
 Channel 1
 </td>
 <td style="text-align:right;">
-1
+2
 </td>
 <td style="text-align:right;">
-23.99
+1300.1400
 </td>
 <td style="text-align:right;">
-20.99
-</td>
-<td style="text-align:right;">
-1
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-2022-08-28
-</td>
-<td style="text-align:left;">
-Channel 1
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-112.00
-</td>
-<td style="text-align:right;">
-100.00
+1261.13580
 </td>
 <td style="text-align:right;">
 1
@@ -1122,27 +995,7 @@ Channel 1
 </tr>
 <tr>
 <td style="text-align:left;">
-2022-08-29
-</td>
-<td style="text-align:left;">
-Channel 1
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-98.79
-</td>
-<td style="text-align:right;">
-95.46
-</td>
-<td style="text-align:right;">
-1
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-2022-08-30
+2023-02-24
 </td>
 <td style="text-align:left;">
 Channel 2
@@ -1151,10 +1004,10 @@ Channel 2
 1
 </td>
 <td style="text-align:right;">
-9.99
+91.4460
 </td>
 <td style="text-align:right;">
-4.99
+88.61262
 </td>
 <td style="text-align:right;">
 1
@@ -1162,7 +1015,67 @@ Channel 2
 </tr>
 <tr>
 <td style="text-align:left;">
-2022-08-31
+2023-02-23
+</td>
+<td style="text-align:left;">
+Channel 1
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+574.9780
+</td>
+<td style="text-align:right;">
+557.63866
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2023-02-23
+</td>
+<td style="text-align:left;">
+Channel 2
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+535.8300
+</td>
+<td style="text-align:right;">
+519.75510
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2023-02-22
+</td>
+<td style="text-align:left;">
+Channel 1
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+1160.9600
+</td>
+<td style="text-align:right;">
+1126.13120
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2023-02-22
 </td>
 <td style="text-align:left;">
 Channel 2
@@ -1171,10 +1084,10 @@ Channel 2
 1
 </td>
 <td style="text-align:right;">
-15.79
+26.2890
 </td>
 <td style="text-align:right;">
-10.36
+25.41033
 </td>
 <td style="text-align:right;">
 1
@@ -1182,7 +1095,27 @@ Channel 2
 </tr>
 <tr>
 <td style="text-align:left;">
-2022-09-01
+2023-02-21
+</td>
+<td style="text-align:left;">
+Channel 1
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+1742.9000
+</td>
+<td style="text-align:right;">
+1690.61300
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2023-02-21
 </td>
 <td style="text-align:left;">
 Channel 2
@@ -1191,30 +1124,10 @@ Channel 2
 1
 </td>
 <td style="text-align:right;">
-54.55
+83.6160
 </td>
 <td style="text-align:right;">
-29.78
-</td>
-<td style="text-align:right;">
-1
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-2022-09-02
-</td>
-<td style="text-align:left;">
-Channel 1
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-36.33
-</td>
-<td style="text-align:right;">
-34.33
+81.01752
 </td>
 <td style="text-align:right;">
 1
@@ -1222,19 +1135,19 @@ Channel 1
 </tr>
 <tr>
 <td style="text-align:left;">
-2022-09-03
+2023-02-20
 </td>
 <td style="text-align:left;">
 Channel 1
 </td>
 <td style="text-align:right;">
-1
+3
 </td>
 <td style="text-align:right;">
-250.00
+378.5355
 </td>
 <td style="text-align:right;">
-229.32
+367.08943
 </td>
 <td style="text-align:right;">
 1
@@ -1242,19 +1155,19 @@ Channel 1
 </tr>
 <tr>
 <td style="text-align:left;">
-2022-09-04
+2023-02-20
 </td>
 <td style="text-align:left;">
-Channel 1
+Channel 2
 </td>
 <td style="text-align:right;">
 1
 </td>
 <td style="text-align:right;">
-12.99
+279.1700
 </td>
 <td style="text-align:right;">
-20.83
+270.79490
 </td>
 <td style="text-align:right;">
 1
@@ -1267,6 +1180,7 @@ Channel 1
 </div>
 
 
+</section>
 </section>
 </section>
 
