@@ -103,7 +103,7 @@ mc <- mc |> group_by(Date)
 mc <- mc |> summarise(
     Marketing_Contribution = sum(Marketing_Contribution)
 )
-print(mc)
+
 barplot(mc$Marketing_Contribution, main="Marketing Contribution by Day", border="#545658", col="#ED0000")
 ```
 
