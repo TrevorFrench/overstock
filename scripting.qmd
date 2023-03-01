@@ -43,7 +43,7 @@ sum(unidentified$Marketing_Spend)
 mean(unidentified$Marketing_Spend)
 ```
 
-As can be seen above, the total marketing spend is \$330,185.80 and the average daily spend is \$3,588.98.
+As can be seen above, the total marketing spend is \$330,185.80 and the average daily spend is \$3,588.98. The bar plot demonstrates that most days see between 200 and 400 existing customers visit the site from an "Unidentified" marketing channel. Additionally, there is one day which is a clear outlier seeing approximately 800 customers.
 
 ## Question 3
 
@@ -67,18 +67,56 @@ brand <- brand |>
 ```
 
 ```{r}
-barplot(brand$Delta, main="New vs. Existing Customers")
+#| warning: false
+
+brand <- brand %>% 
+  mutate(mycolor = ifelse(Delta>0, "type2", "type1"))
+
+ggplot(brand, aes(x=Date, y=Delta)) +
+  geom_segment(aes(x=Date, xend=Date, y=0, yend=Delta, color=mycolor), size=1.3, alpha=0.9) +
+  theme_light() +
+  theme(
+    legend.position = "none",
+    panel.border = element_blank(),
+    plot.title = element_text(size = 14),
+    panel.grid = element_blank(),
+    axis.text.x=element_blank(),
+    axis.ticks.x=element_blank(),
+    axis.title.x = element_blank(),
+    axis.title.y = element_blank()
+  ) +
+  ggtitle("Net New vs. Existing Customers")
 ```
+
+The previous visualization demonstrates that the "brand" channel may drive more existing customers than new customers.
 
 ## Question 4
 
 Please calculate 'Marketing_Contribution' using formula: Marketing_Contribution = Gross_Profit - Marketing_Spend. Make a plot of the daily Marketing_Contribution at the aggregated level (for all channels and customer types together)
 
 ```{r}
-#| output: false
+#| warning: false
 mc <- df |>
   mutate(Marketing_Contribution = Gross_Profit - Marketing_Spend)
 barplot(mc$Marketing_Contribution, main="Marketing Contribution")
+
+mc <- mc %>% 
+  mutate(mycolor = ifelse(Marketing_Contribution>0, "type2", "type1"))
+
+ggplot(mc, aes(x=Date, y=Marketing_Contribution)) +
+  geom_segment(aes(x=Date, xend=Date, y=0, yend=Marketing_Contribution, color=mycolor), size=1.3, alpha=0.9) +
+  theme_light() +
+  theme(
+    legend.position = "none",
+    panel.border = element_blank(),
+    plot.title = element_text(size = 14),
+    panel.grid = element_blank(),
+    axis.text.x=element_blank(),
+    axis.ticks.x=element_blank(),
+    axis.title.x = element_blank(),
+    axis.title.y = element_blank()
+  ) +
+  ggtitle("Marketing Contribution")
 ```
 
 ## Question 5
@@ -86,7 +124,6 @@ barplot(mc$Marketing_Contribution, main="Marketing Contribution")
 Find correlation between Paid Search Revenue and Organic Search Revenue - as a calculation as well as a plot.
 
 ```{r}
-#| output: false
 search <- df |>
   filter(df$Channel %in% c("Paid Search", "Organic Search"))
 search <- search |>
