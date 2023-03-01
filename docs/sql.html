@@ -937,7 +937,7 @@ Channel 2
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  , CHANNEL_DESCRIPTION <span class="kw">AS</span> <span class="ot">"CHANNEL"</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  , <span class="fu">COUNT</span>(<span class="kw">DISTINCT</span> BI_VISIT.VISIT_ID) <span class="kw">AS</span> <span class="ot">"VISITS"</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  , <span class="fu">SUM</span>(REVENUE_TOP_LINE) <span class="kw">AS</span> <span class="ot">"TOP LINE"</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  , <span class="fu">SUM</span>(REVENUE_BOTTOM_LINE) <span class="kw">AS</span> <span class="ot">"BOTTOM_LINE"</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  , <span class="fu">SUM</span>(REVENUE_BOTTOM_LINE) <span class="kw">AS</span> <span class="ot">"BOTTOM LINE"</span></span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  , <span class="fu">COUNT</span>(<span class="kw">DISTINCT</span> SALES_TRANSACTION_ID) <span class="op">/</span> <span class="fu">COUNT</span>(<span class="kw">DISTINCT</span> BI_VISIT.VISIT_ID) <span class="kw">AS</span> <span class="ot">"CONVERSION RATE"</span></span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> BI_VISIT</span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="kw">LEFT</span> <span class="kw">JOIN</span> BI_SALES <span class="kw">ON</span> BI_VISIT.VISIT_ID <span class="op">=</span> BI_SALES.VISIT_ID</span>
@@ -966,7 +966,7 @@ VISITS
 TOP LINE
 </th>
 <th style="text-align:right;">
-BOTTOM_LINE
+BOTTOM LINE
 </th>
 <th style="text-align:right;">
 CONVERSION RATE
